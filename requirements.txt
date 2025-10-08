@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+requests
+openai
+langchain
+sqlalchemy
+# sqlite3  # built-in in Python, unnecessary
+streamlit
+sentence-transformers
+rouge-score
