@@ -1,0 +1,89 @@
+{
+  "summarizer": {
+    "name": "Text Summarizer",
+    "description": "Summarizes long text or document into concise, readable form while preserving key meaning and structure.",
+    "type": "text_processing",
+    "method": "huggingface_local",
+    "endpoint": "sshleifer/distilbart-cnn-12-6",
+    "example_input": "Summarize this abstract about neural networks.",
+    "example_output": "Neural networks are computational systems inspired by the human brain that learn to perform tasks by analyzing data.",
+    "notes": "Runs locally using transformers pipeline. Works well for moderate text sizes under 3K tokens."
+  },
+
+  "retriever_wikipedia": {
+    "name": "Wikipedia Retriever",
+    "description": "Fetches summaries or sections of Wikipedia articles related to the query topic.",
+    "type": "information_retrieval",
+    "method": "python_lib",
+    "library": "wikipedia",
+    "example_input": "Find information about quantum computing.",
+    "example_output": "Quantum computing uses quantum bits (qubits) that can exist in superposition states to perform computation.",
+    "notes": "No API key required. Use wikipedia.summary(topic)."
+  },
+
+  "retriever_duckduckgo": {
+    "name": "DuckDuckGo Search Tool",
+    "description": "Retrieves web information and snippets using DuckDuckGo Search without requiring API keys.",
+    "type": "information_retrieval",
+    "method": "python_lib",
+    "library": "duckduckgo-search",
+    "example_input": "Search for recent advancements in generative AI.",
+    "example_output": "Recent advancements in generative AI include multimodal models like Gemini and GPT-4V.",
+    "notes": "Use DDGS().text(query) for simple search."
+  },
+
+  "verifier_zero_shot": {
+    "name": "Fact Verifier",
+    "description": "Verifies whether the generated summary or response is factually consistent with the retrieved content using zero-shot classification.",
+    "type": "verification",
+    "method": "huggingface_local",
+    "endpoint": "facebook/bart-large-mnli",
+    "example_input": "Claim: The Eiffel Tower is located in Rome.",
+    "example_output": "False — The Eiffel Tower is located in Paris, France.",
+    "notes": "Uses Hugging Face zero-shot classification pipeline."
+  },
+
+  "grammar_checker": {
+    "name": "Grammar and Coherence Checker",
+    "description": "Checks grammar, spelling, and coherence issues in generated text using LanguageTool API.",
+    "type": "text_analysis",
+    "method": "api_call",
+    "endpoint": "https://api.languagetool.org/v2/check",
+    "example_input": "He go to school everyday.",
+    "example_output": "He goes to school every day.",
+    "notes": "Free, no API key needed. Ideal for final text polishing."
+  },
+
+  "planner_openrouter": {
+    "name": "Planner LLM (Primary Agent)",
+    "description": "Analyzes the user’s task, understands available tools from this file, plans a task execution pipeline, and delegates subtasks to the Executor.",
+    "type": "planner_agent",
+    "method": "api_call",
+    "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+    "example_input": "User wants a concise summary of the latest research in generative AI.",
+    "example_output": "1. Use retriever_duckduckgo to find latest articles. 2. Summarize with summarizer. 3. Verify with verifier_zero_shot.",
+    "notes": "Acts as controller. Requires API key from OpenRouter."
+  },
+
+  "executor_openrouter": {
+    "name": "Executor LLM (Secondary Agent)",
+    "description": "Receives planned subtasks from Planner and executes them by invoking the specified tools or APIs.",
+    "type": "executor_agent",
+    "method": "api_call",
+    "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+    "example_input": "Summarize retrieved content and verify its accuracy.",
+    "example_output": "Generated verified summary and passed verification test.",
+    "notes": "Handles execution and refinement based on feedback from Planner."
+  },
+
+  "report_generator": {
+    "name": "Report Generator",
+    "description": "Combines multiple verified outputs into a single coherent, structured report (intro, body, conclusion).",
+    "type": "text_processing",
+    "method": "local_script",
+    "endpoint": "utils/report_generator.py",
+    "example_input": "Summaries of three research papers.",
+    "example_output": "A combined report synthesizing insights from all three papers.",
+    "notes": "Can be simple concatenation + formatting + coherence checks."
+  }
+}
