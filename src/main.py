@@ -1,90 +1,209 @@
+#!/usr/bin/env python3
 """
-Main orchestrator module for Verimind.
-
-This module coordinates the Planner and Executor agents asynchronously.
+DualMind Orchestrator - Main Entry Point
+GAN-Inspired Multi-Agent Task Planning & Execution System
 """
 
-import asyncio
-import json
 import os
-from typing import Dict, Any, List
-from dotenv import load_dotenv
-from planner import Planner
-from executor import Executor
+import sys
+import logging
+import argparse
+from pathlib import Path
 
-# Load environment variables
-load_dotenv()
+# Add the current directory to Python path for imports
+current_dir = Path(__file__).parent
+sys.path.insert(0, str(current_dir))
 
-class Orchestrator:
+def setup_logging(log_level: str = "INFO", log_file: str = "logs/dualmind.log"):
     """
-    Main orchestrator for the HuggingGPT-inspired system.
+    Set up logging configuration.
+
+    Args:
+        log_level (str): Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log_file (str): Path to log file
     """
+    # Create logs directory if it doesn't exist
+    os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
-    def __init__(self):
-        self.planner = Planner()
-        self.executor = Executor()
+    # Configure logging
+    logging.basicConfig(
+        level=getattr(logging, log_level.upper(), logging.INFO),
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_file),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
 
-    async def run_task(self, user_input: str, max_rounds: int = 3, threshold: float = 0.85) -> Dict[str, Any]:
-        """
-        Run the full task orchestration.
+    logger = logging.getLogger(__name__)
+    logger.info("Logging initialized")
 
-        Args:
-            user_input (str): User's task.
-            max_rounds (int): Max rounds.
-            threshold (float): Threshold.
+def check_dependencies():
+    """Check if all required dependencies are installed."""
+    required_packages = [
+        'openai', 'requests', 'transformers', 'bs4',
+        'matplotlib', 'pandas', 'fpdf', 'gradio', 'flask',
+        'json', 'time', 'logging', 'os', 'dotenv'
+    ]
 
-        Returns:
-            Dict: Final result and trace.
-        """
-        # Plan and verify loop
-        plan_result = await self.planner.plan_and_verify(user_input, max_rounds, threshold)
+    missing_packages = []
 
-        # If plan is good, execute with guidance
-        if plan_result['score'] >= threshold:
-            execution_result = await self.executor.execute_with_guidance(plan_result['final_plan'])
-            final_output = execution_result['final_output']
-        else:
-            final_output = plan_result['final_result']['final_output'] if plan_result['final_result'] else "Failed to generate output"
+    for package in required_packages:
+        try:
+            __import__(package)
+        except ImportError:
+            missing_packages.append(package)
 
-        # Log trace
-        self._log_trace(plan_result['trace'])
+    if missing_packages:
+        print("❌ Missing required packages:")
+        for package in missing_packages:
+            print(f"  • {package}")
+        print("\nPlease install missing packages:")
+        print(f"pip install {' '.join(missing_packages)}")
+        return False
 
-        print("Trace:", plan_result['trace'])  # Debug
+    print("✅ All required packages are installed")
+    return True
 
-        return {
-            'final_output': final_output,
-            'trace': plan_result['trace'],
-            'score': plan_result['score']
-        }
+def create_env_file():
+    """Create a .env file template if it doesn't exist."""
+    env_file = ".env"
 
-    def _log_trace(self, trace: List[Dict]):
-        """
-        Log execution trace to file.
+    if not os.path.exists(env_file):
+        env_content = """# DualMind Orchestrator Environment Configuration
+# Copy this file and rename it to .env, then fill in your API keys
 
-        Args:
-            trace (List[Dict]): Trace data.
-        """
-        os.makedirs('logs', exist_ok=True)
-        with open('logs/execution_trace.json', 'w') as f:
-            json.dump(trace, f, indent=2)
+# OpenRouter API Key (for LLM access)
+# Get your free API key from: https://openrouter.ai/
+OPENROUTER_API_KEY=your_openrouter_api_key_here
 
-async def main():
-    """
-    Main entry point.
-    """
-    orchestrator = Orchestrator()
+# NewsAPI Key (optional, for news fetching)
+# Get your free API key from: https://newsapi.org/
+NEWSAPI_KEY=demo_key
 
-    # Get user input
-    if len(os.sys.argv) > 1:
-        task = " ".join(os.sys.argv[1:])
+# Optional: Custom model settings
+# OPENROUTER_MODEL=meta-llama/llama-3.2-3b-instruct:free
+
+# Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+LOG_LEVEL=INFO
+
+# Server settings
+GRADIO_SERVER_PORT=7860
+GRADIO_SHARE=False
+"""
+
+        try:
+            with open(env_file, 'w') as f:
+                f.write(env_content)
+            print("📝 Created .env template file")
+            print("Please edit .env file and add your API keys before running")
+        except Exception as e:
+            print(f"❌ Error creating .env file: {e}")
     else:
-        task = input("Enter your task: ")
+        print("✅ .env file already exists")
 
-    result = await orchestrator.run_task(task)
+def main():
+    """Main entry point for DualMind Orchestrator."""
+    parser = argparse.ArgumentParser(
+        description="DualMind Orchestrator - GAN-Inspired Multi-Agent System",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python main.py                    # Run with default settings
+  python main.py --port 8080        # Run on custom port
+  python main.py --check-deps       # Check dependencies only
+  python main.py --create-env       # Create .env template
+        """
+    )
 
-    print("Final Output:")
-    print(result['final_output'])
-    print(f"Score: {result['score']}")
+    parser.add_argument(
+        '--port', '-p',
+        type=int,
+        default=7860,
+        help='Port to run the Gradio server on (default: 7860)'
+    )
+
+    parser.add_argument(
+        '--host',
+        default='0.0.0.0',
+        help='Host to bind the server to (default: 0.0.0.0)'
+    )
+
+    parser.add_argument(
+        '--share',
+        action='store_true',
+        help='Create a public link (requires Gradio account)'
+    )
+
+    parser.add_argument(
+        '--check-deps',
+        action='store_true',
+        help='Check if all dependencies are installed'
+    )
+
+    parser.add_argument(
+        '--create-env',
+        action='store_true',
+        help='Create .env template file'
+    )
+
+    parser.add_argument(
+        '--log-level',
+        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+        default='INFO',
+        help='Set logging level (default: INFO)'
+    )
+
+    args = parser.parse_args()
+
+    # Handle special actions
+    if args.check_deps:
+        success = check_dependencies()
+        sys.exit(0 if success else 1)
+
+    if args.create_env:
+        create_env_file()
+        return
+
+    # Check dependencies before proceeding
+    if not check_dependencies():
+        print("\n❌ Please install missing dependencies and try again.")
+        sys.exit(1)
+
+    # Create .env file if it doesn't exist
+    create_env_file()
+
+    # Setup logging
+    setup_logging(args.log_level)
+
+    logger = logging.getLogger(__name__)
+
+    try:
+        # Import and start the UI
+        logger.info("Starting DualMind Orchestrator...")
+
+        from ui import create_ui
+
+        # Create the interface
+        interface = create_ui()
+
+        # Launch the server
+        logger.info(f"Launching Gradio server on {args.host}:{args.port}")
+        interface.launch(
+            server_name=args.host,
+            server_port=args.port,
+            share=args.share,
+            show_api=False
+        )
+
+    except KeyboardInterrupt:
+        logger.info("Received keyboard interrupt, shutting down...")
+        sys.exit(0)
+    except Exception as e:
+        logger.error(f"Error starting DualMind Orchestrator: {e}")
+        print(f"\n❌ Error: {e}")
+        print("Please check the logs for more details.")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
