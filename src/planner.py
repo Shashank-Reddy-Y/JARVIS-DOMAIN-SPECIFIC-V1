@@ -162,20 +162,35 @@ class Planner:
             "final_output": "Professional PDF report"
         }
 
-    def create_plan(self, user_query: str) -> Dict[str, Any]:
+    def create_plan(self, user_query: str, orchestrator=None) -> Dict[str, Any]:
         """
-        Create a task plan based on the user query.
+        Create a task plan based on the user query with learning/adaptation.
 
         Args:
             user_query (str): The user's natural language query
+            orchestrator: Optional orchestrator instance for accessing learning patterns
 
         Returns:
             Dict[str, Any]: Structured task plan
         """
+        # LEARNING/ADAPTATION: Check for similar successful patterns
+        similar_patterns = []
+        if orchestrator:
+            try:
+                similar_patterns = orchestrator.get_similar_successful_patterns(user_query, limit=3)
+                if similar_patterns:
+                    best_match = similar_patterns[0]
+                    similarity = best_match.get("similarity", 0)
+                    if similarity > 0.7:  # High similarity threshold
+                        self.logger.info(f"📚 Found similar successful pattern (similarity: {similarity:.2f})")
+                        self.logger.info(f"Learning from: {best_match.get('query', 'Unknown')}")
+            except Exception as e:
+                self.logger.debug(f"Pattern retrieval failed: {e}")
+        
         # Try to use LLM for plan generation if available
         if self.llm_client and self.llm_client.is_available():
             try:
-                llm_plan = self._create_llm_plan(user_query)
+                llm_plan = self._create_llm_plan(user_query, similar_patterns)
                 if llm_plan and "pipeline" in llm_plan and llm_plan["pipeline"]:
                     self.logger.info("Successfully created LLM-based plan")
                     return llm_plan
@@ -188,10 +203,298 @@ class Planner:
                 return self._create_fallback_plan(user_query)
         else:
             self.logger.info("LLM not available, using fallback plan generation")
+            # If we have similar patterns, use them for fallback
+            if similar_patterns and similar_patterns[0].get("similarity", 0) > 0.7:
+                return self._create_plan_from_pattern(user_query, similar_patterns[0])
             return self._create_fallback_plan(user_query)
 
-    def _create_llm_plan(self, user_query: str) -> Dict[str, Any]:
-        """Create a plan using LLM for intelligent analysis."""
+    def create_plan_with_feedback(
+        self, 
+        user_query: str, 
+        previous_plan: Dict[str, Any],
+        feedback: str,
+        issues: List[str],
+        suggestions: List[str],
+        score: int
+    ) -> Dict[str, Any]:
+        """
+        Create an improved plan based on verifier feedback.
+        
+        Args:
+            user_query: Original user query
+            previous_plan: The plan that was rejected
+            feedback: Human-readable feedback from verifier
+            issues: List of specific issues identified
+            suggestions: List of improvement suggestions
+            score: Previous plan's score
+            
+        Returns:
+            Dict[str, Any]: Improved task plan
+        """
+        self.logger.info(f"Regenerating plan with verifier feedback (previous score: {score})")
+        
+        # Try LLM-based replanning if available
+        if self.llm_client and self.llm_client.is_available():
+            try:
+                llm_plan = self._create_llm_plan_with_feedback(
+                    user_query, previous_plan, issues, suggestions, score
+                )
+                if llm_plan and "pipeline" in llm_plan and llm_plan["pipeline"]:
+                    self.logger.info("Successfully created feedback-based LLM plan")
+                    return llm_plan
+                else:
+                    self.logger.warning("Feedback-based LLM plan was empty, using fallback improvement")
+                    return self._improve_plan_rule_based(previous_plan, issues, suggestions)
+            except Exception as e:
+                self.logger.warning(f"LLM feedback planning failed ({type(e).__name__}), using rule-based improvement")
+                return self._improve_plan_rule_based(previous_plan, issues, suggestions)
+        else:
+            # Fallback to rule-based plan improvement
+            return self._improve_plan_rule_based(previous_plan, issues, suggestions)
+    
+    def _create_llm_plan_with_feedback(
+        self,
+        user_query: str,
+        previous_plan: Dict[str, Any],
+        issues: List[str],
+        suggestions: List[str],
+        score: int
+    ) -> Dict[str, Any]:
+        """Create an improved plan using LLM with feedback context."""
+        
+        # Enhanced system prompt with feedback
+        system_prompt = """You are a JSON-only response bot. You MUST respond with ONLY valid JSON. No other text is allowed.
+
+Available tools:
+{tools_description}
+
+⚠️ CRITICAL INSTRUCTIONS - FOLLOW EXACTLY:
+1. Your response MUST start with {{ and end with }}
+2. DO NOT write ANY text before the {{
+3. DO NOT write ANY text after the }}
+4. DO NOT use markdown code blocks (```)
+5. DO NOT include explanations or comments
+6. ONLY output valid, parseable JSON
+
+Required structure:
+{{
+    "query": "original user query here",
+    "reasoning": "your planning reasoning addressing the feedback",
+    "pipeline": [
+        {{"tool": "tool_name", "purpose": "why needed", "input": "tool input"}}
+    ],
+    "final_output": "what the pipeline will produce"
+}}
+
+Rules:
+- Use 2-5 tools maximum
+- Only use tools from available list above
+- Create logical sequences
+- ALWAYS include qa_engine as the LAST step to synthesize a comprehensive answer
+- For information gathering, use wikipedia_search, arxiv_summarizer, or news_fetcher BEFORE qa_engine
+- Address ALL the issues and suggestions provided
+- Ensure proper JSON syntax (commas, quotes, etc.)
+
+IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately."""
+        
+        # Format available tools
+        tools_description = ""
+        for tool in self.tools:
+            tools_description += f"- {tool.get('name', 'Unknown')}: {tool.get('description', 'No description')}\n"
+        
+        # Build detailed prompt with feedback
+        previous_pipeline = previous_plan.get("pipeline", [])
+        previous_tools = [step.get("tool") for step in previous_pipeline]
+        
+        prompt = f"""User Query: {user_query}
+
+Previous Plan Score: {score}/100 (REJECTED)
+
+Previous Pipeline:
+{json.dumps(previous_pipeline, indent=2)}
+
+Issues Identified:
+{chr(10).join(f"- {issue}" for issue in issues) if issues else "- None"}
+
+Suggestions for Improvement:
+{chr(10).join(f"- {suggestion}" for suggestion in suggestions) if suggestions else "- None"}
+
+Create an IMPROVED task plan that addresses all the issues and suggestions above:"""
+        
+        llm_response = self.llm_client.call_llm(
+            prompt=prompt,
+            system_prompt=system_prompt.format(tools_description=tools_description),
+            max_tokens=1500
+        )
+        
+        if llm_response:
+            try:
+                # Parse the improved plan
+                if parse_llm_json:
+                    expected_keys = ["query", "reasoning", "pipeline", "final_output"]
+                    plan_data = parse_llm_json(llm_response, expected_keys)
+                    
+                    if validate_plan_json and not validate_plan_json(plan_data):
+                        self.logger.warning("Improved LLM plan failed validation, enhancing...")
+                        plan_data = self._validate_and_enhance_plan(plan_data, user_query)
+                else:
+                    clean_response = self._extract_json_from_response(llm_response)
+                    plan_data = json.loads(clean_response)
+                    plan_data = self._validate_and_enhance_plan(plan_data, user_query)
+                
+                # Validate and enhance
+                plan_data = self._validate_and_enhance_plan(plan_data, user_query)
+                
+                # Add metadata
+                plan_data.update({
+                    "created_at": datetime.now().isoformat(),
+                    "planner_version": "2.0.0-llm-feedback",
+                    "available_tools": len(self.tools),
+                    "estimated_steps": len(plan_data.get("pipeline", [])),
+                    "llm_generated": True,
+                    "revision_number": previous_plan.get("revision_number", 0) + 1,
+                    "previous_score": score,
+                    "addressed_issues": len(issues)
+                })
+                
+                self.logger.info(f"Generated improved plan revision {plan_data.get('revision_number', 1)}")
+                return plan_data
+                
+            except (json.JSONDecodeError, ValueError) as e:
+                self.logger.debug(f"Failed to parse improved LLM JSON: {e}")
+                raise
+        else:
+            raise ValueError("LLM returned no response for feedback-based planning")
+    
+    def _improve_plan_rule_based(
+        self, 
+        previous_plan: Dict[str, Any],
+        issues: List[str],
+        suggestions: List[str]
+    ) -> Dict[str, Any]:
+        """Improve plan using rule-based logic when LLM is unavailable."""
+        self.logger.info("Using rule-based plan improvement")
+        
+        improved_plan = previous_plan.copy()
+        pipeline = list(previous_plan.get("pipeline", []))
+        query = previous_plan.get("query", "")
+        
+        # Rule 1: If redundancy issue, remove duplicate tools
+        if any("redundant" in issue.lower() for issue in issues):
+            seen_tools = set()
+            unique_pipeline = []
+            for step in pipeline:
+                tool = step.get("tool")
+                if tool not in seen_tools:
+                    unique_pipeline.append(step)
+                    seen_tools.add(tool)
+            pipeline = unique_pipeline
+            self.logger.info("Removed redundant tools")
+        
+        # Rule 2: If relevance issue, try to add more relevant tools
+        if any("relevant" in issue.lower() for issue in issues):
+            # Add wikipedia for foundational knowledge if not present
+            tools_used = [step.get("tool") for step in pipeline]
+            if "wikipedia_search" not in tools_used:
+                pipeline.insert(0, {
+                    "tool": "wikipedia_search",
+                    "purpose": "Get foundational knowledge about the topic",
+                    "input": query
+                })
+                self.logger.info("Added wikipedia_search for better relevance")
+        
+        # Rule 3: If completeness issue, add more data sources
+        if any("complete" in issue.lower() or "comprehensive" in suggestion.lower() for suggestion in suggestions):
+            tools_used = [step.get("tool") for step in pipeline]
+            
+            # Add arxiv if not present
+            if "arxiv_summarizer" not in tools_used:
+                pipeline.append({
+                    "tool": "arxiv_summarizer",
+                    "purpose": "Get academic research for comprehensive coverage",
+                    "input": query
+                })
+                self.logger.info("Added arxiv_summarizer for completeness")
+            
+            # Add news if not present
+            if "news_fetcher" not in tools_used:
+                pipeline.append({
+                    "tool": "news_fetcher",
+                    "purpose": "Get current developments for comprehensive coverage",
+                    "input": query
+                })
+                self.logger.info("Added news_fetcher for completeness")
+        
+        # Rule 4: Ensure qa_engine is always the last step
+        tools_in_pipeline = [step.get("tool") for step in pipeline]
+        
+        # Remove qa_engine if it's not at the end
+        pipeline = [step for step in pipeline if step.get("tool") != "qa_engine"]
+        
+        # Add qa_engine at the end
+        pipeline.append({
+            "tool": "qa_engine",
+            "purpose": "Synthesize comprehensive answer from all gathered information",
+            "input": f"{query} (Use all information from previous tools to provide a detailed answer)"
+        })
+        self.logger.info("Ensured qa_engine is final synthesis step")
+        
+        # Update the improved plan
+        improved_plan["pipeline"] = pipeline
+        improved_plan["reasoning"] = f"Improved plan addressing: {', '.join(issues[:3])}" if issues else "Rule-based plan improvement"
+        improved_plan.update({
+            "created_at": datetime.now().isoformat(),
+            "planner_version": "1.0.0-feedback-rules",
+            "available_tools": len(self.tools),
+            "estimated_steps": len(pipeline),
+            "llm_generated": False,
+            "revision_number": previous_plan.get("revision_number", 0) + 1,
+            "improvements_applied": len(issues) + len(suggestions)
+        })
+        
+        return improved_plan
+
+    def _create_plan_from_pattern(self, user_query: str, pattern: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a plan based on a similar successful pattern (learning/adaptation)."""
+        self.logger.info("📖 Creating plan from learned pattern")
+        
+        # Adapt the pattern to the new query
+        pattern_plan = pattern.get("plan", {})
+        adapted_plan = {
+            "query": user_query,
+            "reasoning": f"Adapted from similar successful pattern: {pattern.get('query', 'Unknown')}",
+            "pipeline": pattern_plan.get("pipeline", []),
+            "final_output": pattern_plan.get("final_output", "Comprehensive response"),
+            "created_at": datetime.now().isoformat(),
+            "planner_version": "2.0.0-pattern-learning",
+            "learned_from": pattern.get("query", "Unknown"),
+            "pattern_similarity": pattern.get("similarity", 0),
+            "pattern_score": pattern.get("score", 0)
+        }
+        
+        # Update inputs to use new query
+        for step in adapted_plan["pipeline"]:
+            if step.get("input") and pattern.get("query") in step["input"]:
+                step["input"] = step["input"].replace(pattern.get("query", ""), user_query)
+            elif not step.get("input") or len(step["input"]) < 5:
+                step["input"] = user_query
+        
+        return adapted_plan
+    
+    def _create_llm_plan(self, user_query: str, similar_patterns: List[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Create a plan using LLM for intelligent analysis with learning context."""
+        
+        # Add learning context if available
+        learning_context = ""
+        if similar_patterns:
+            learning_context = "\n\nLEARNED PATTERNS (use as reference):\n"
+            for i, pattern in enumerate(similar_patterns[:2], 1):  # Top 2 patterns
+                learning_context += f"{i}. Similar query: {pattern.get('query', 'Unknown')}\n"
+                learning_context += f"   Similarity: {pattern.get('similarity', 0):.2f}\n"
+                learning_context += f"   Score: {pattern.get('score', 0)}/100\n"
+                tools_used = pattern.get('plan', {}).get('tools_used', [])
+                if tools_used:
+                    learning_context += f"   Successful tools: {', '.join(tools_used)}\n"
         
         # Prepare the system prompt for planning
         system_prompt = """You are a JSON-only response bot. You MUST respond with ONLY valid JSON. No other text is allowed.
@@ -223,6 +526,7 @@ Rules:
 - Create logical sequences
 - ALWAYS include qa_engine as the LAST step to synthesize a comprehensive answer
 - For information gathering, use wikipedia_search, arxiv_summarizer, or news_fetcher BEFORE qa_engine
+- If similar successful patterns are provided, consider their tool choices
 - Ensure proper JSON syntax (commas, quotes, etc.)
 
 IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately."""
@@ -232,7 +536,7 @@ IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately.
         for tool in self.tools:
             tools_description += f"- {tool.get('name', 'Unknown')}: {tool.get('description', 'No description')}\n"
 
-        prompt = f"User Query: {user_query}\n\nCreate a task plan:"
+        prompt = f"User Query: {user_query}{learning_context}\n\nCreate a task plan:"
 
         llm_response = self.llm_client.call_llm(
             prompt=prompt,
