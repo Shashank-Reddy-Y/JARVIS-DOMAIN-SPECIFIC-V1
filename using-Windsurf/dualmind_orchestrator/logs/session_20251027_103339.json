@@ -1,0 +1,162 @@
+{
+  "session_id": "session_20251027_103322",
+  "user_query": "give code for N-Queens problem.",
+  "execution_time": 16.867820024490356,
+  "iterations": 1,
+  "plan": {
+    "query": "give code for N-Queens problem.",
+    "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
+    "pipeline": [
+      {
+        "tool": "wikipedia_search",
+        "purpose": "Get foundational knowledge about the topic",
+        "input": "give code for N-Queens problem."
+      },
+      {
+        "tool": "news_fetcher",
+        "purpose": "Find recent developments and news",
+        "input": "give code for N-Queens problem."
+      },
+      {
+        "tool": "arxiv_summarizer",
+        "purpose": "Get academic research and papers",
+        "input": "give code for N-Queens problem."
+      }
+    ],
+    "final_output": "Comprehensive research summary with sources",
+    "created_at": "2025-10-27T10:33:25.009653",
+    "planner_version": "1.0.0-fallback",
+    "available_tools": 7,
+    "estimated_steps": 3,
+    "llm_generated": false
+  },
+  "plan_history": [
+    {
+      "iteration": 0,
+      "plan": {
+        "query": "give code for N-Queens problem.",
+        "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
+        "pipeline": [
+          {
+            "tool": "wikipedia_search",
+            "purpose": "Get foundational knowledge about the topic",
+            "input": "give code for N-Queens problem."
+          },
+          {
+            "tool": "news_fetcher",
+            "purpose": "Find recent developments and news",
+            "input": "give code for N-Queens problem."
+          },
+          {
+            "tool": "arxiv_summarizer",
+            "purpose": "Get academic research and papers",
+            "input": "give code for N-Queens problem."
+          }
+        ],
+        "final_output": "Comprehensive research summary with sources",
+        "created_at": "2025-10-27T10:33:25.009653",
+        "planner_version": "1.0.0-fallback",
+        "available_tools": 7,
+        "estimated_steps": 3,
+        "llm_generated": false
+      },
+      "score": 0
+    },
+    {
+      "iteration": 1,
+      "plan": {
+        "query": "give code for N-Queens problem.",
+        "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
+        "pipeline": [
+          {
+            "tool": "wikipedia_search",
+            "purpose": "Get foundational knowledge about the topic",
+            "input": "give code for N-Queens problem."
+          },
+          {
+            "tool": "news_fetcher",
+            "purpose": "Find recent developments and news",
+            "input": "give code for N-Queens problem."
+          },
+          {
+            "tool": "arxiv_summarizer",
+            "purpose": "Get academic research and papers",
+            "input": "give code for N-Queens problem."
+          }
+        ],
+        "final_output": "Comprehensive research summary with sources",
+        "created_at": "2025-10-27T10:33:25.009653",
+        "planner_version": "1.0.0-fallback",
+        "available_tools": 7,
+        "estimated_steps": 3,
+        "llm_generated": false
+      },
+      "score": 85,
+      "approved": true
+    }
+  ],
+  "plan_explanation": "\ud83e\udd16 **Planner Analysis & Task Pipeline**\n\n**Query:** give code for N-Queens problem.\n\n**Reasoning:** User wants to research a topic, so I'll gather information from multiple sources.\n\n**\ud83d\udccb Planned Task Pipeline:**\n1. **wikipedia_search**\n   - Purpose: Get foundational knowledge about the topic\n   - Input: give code for N-Queens problem.\n\n2. **news_fetcher**\n   - Purpose: Find recent developments and news\n   - Input: give code for N-Queens problem.\n\n3. **arxiv_summarizer**\n   - Purpose: Get academic research and papers\n   - Input: give code for N-Queens problem.\n\n**\ud83c\udfaf Expected Output:** Comprehensive research summary with sources\n**\ud83d\udcca Plan Metadata:** 3 steps, 7 tools available",
+  "verification": {
+    "plan_id": "plan_20251027_103325",
+    "verified_at": "2025-10-27T10:33:25.566358",
+    "overall_approval": true,
+    "issues": [
+      "Some tools may not be directly relevant to the query"
+    ],
+    "suggestions": [
+      "Consider tools more aligned with the specific query intent"
+    ],
+    "improvements": [],
+    "score": 85,
+    "verification_method": "rule_based"
+  },
+  "verifier_feedback": "\ud83d\udd0d **Verifier Feedback & Plan Validation**\n\n\u2705 **Plan Approved** (Score: 85/100)\n\n**\ud83d\udea8 Issues Found:**\n\u2022 Some tools may not be directly relevant to the query\n\n**\ud83d\udca1 Suggestions:**\n\u2022 Consider tools more aligned with the specific query intent\n\n**\ud83d\udcca Verification Summary:**\n\u2022 Plan ID: plan_20251027_103325\n\u2022 Verified at: 2025-10-27T10:33:25.566358\n\u2022 Tools checked: 7\n\u2022 Rules applied: 5",
+  "execution_results": [
+    {
+      "step": 1,
+      "tool": "wikipedia_search",
+      "status": "success",
+      "execution_time": 2.0308101177215576,
+      "output": "## give code for N-Queens problem.\n\n\"give code for N-Queens problem.\" is a topic in computer science and technology. The Wikipedia API is currently unavailable, but this represents knowledge about the subject.\n\n**Source:** [https://en.wikipedia.org/wiki/give_code_for_N-Queens_problem.](https://en.wikipedia.org/wiki/give_code_for_N-Queens_problem.)\n\n*Note: This is a fallback summary as the Wikipedia API could not be accessed.*",
+      "input": "give code for N-Queens problem.",
+      "purpose": "Get foundational knowledge about the topic"
+    },
+    {
+      "step": 2,
+      "tool": "news_fetcher",
+      "status": "success",
+      "execution_time": 0.0,
+      "output": "Latest news articles related to 'give code for N-Queens problem.':\n\n1. **AI Breakthrough in Climate Research Announced**\n   Source: TechCrunch\n   Published: 2025-10-27\n   Description: Scientists develop new machine learning model to predict climate patterns with unprecedented accuracy.\n   URL: https://example.com/ai-climate-news\n\n2. **Breakthrough in Quantum Computing Research**\n   Source: Nature\n   Published: 2025-10-27\n   Description: Researchers achieve quantum supremacy milestone with new experimental processor.\n   URL: https://example.com/quantum-news\n\n3. **Machine Learning Transforms Healthcare Industry**\n   Source: MIT Technology Review\n   Published: 2025-10-27\n   Description: AI-powered diagnostic tools show 95% accuracy in early disease detection.\n   URL: https://example.com/ml-healthcare-news\n\n",
+      "input": "give code for N-Queens problem.",
+      "purpose": "Find recent developments and news"
+    },
+    {
+      "step": 3,
+      "tool": "arxiv_summarizer",
+      "status": "success",
+      "execution_time": 10.556792259216309,
+      "output": "No papers found for query: give code for N-Queens problem.",
+      "input": "give code for N-Queens problem.",
+      "purpose": "Get academic research and papers"
+    }
+  ],
+  "final_verification": {
+    "plan_id": "plan_20251027_103339",
+    "verified_at": "2025-10-27T10:33:39.198015",
+    "overall_approval": true,
+    "issues": [
+      "Some tools may not be directly relevant to the query"
+    ],
+    "suggestions": [
+      "Consider tools more aligned with the specific query intent"
+    ],
+    "improvements": [],
+    "score": 85,
+    "verification_method": "rule_based"
+  },
+  "status": "completed",
+  "adversarial_loop_active": true,
+  "final_plan_score": 85,
+  "plan_approved": true,
+  "self_correction_used": false
+}
