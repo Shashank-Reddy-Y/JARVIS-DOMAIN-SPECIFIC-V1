@@ -1,3 +1,4 @@
+
 """
 Orchestrator Module
 Coordinates Planner, Verifier, and tool execution in the DualMind system.
@@ -76,7 +77,7 @@ class Orchestrator:
 
         return tools
 
-    def process_query(self, user_query: str, max_iterations: int = 3) -> Dict[str, Any]:
+    def process_query(self, user_query: str, max_iterations: int = 2) -> Dict[str, Any]:
         """
         Process a user query through the complete DualMind pipeline.
 
@@ -93,35 +94,107 @@ class Orchestrator:
         self.logger.info(f"Starting new session: {session_id}")
 
         try:
-            # Phase 1: Planning
-            self.logger.info("Phase 1: Generating task plan...")
-            plan = self.planner.create_plan(user_query)
+            # Phase 1: Initial Planning with Learning/Adaptation
+            self.logger.info("Phase 1: Generating initial task plan...")
+            plan = self.planner.create_plan(user_query, orchestrator=self)
             plan_explanation = self.planner.explain_plan(plan)
 
-            # Phase 2: Verification and iteration
+            # Phase 2: Adversarial Loop - Verification and Iterative Improvement
+            self.logger.info("Phase 2: Entering adversarial verification loop...")
             iteration = 0
+            verification = None
+            verifier_feedback = None
+            plan_history = [{"iteration": 0, "plan": plan.copy(), "score": 0}]
+            
             while iteration < max_iterations:
                 iteration += 1
-                self.logger.info(f"Verification iteration {iteration}")
+                self.logger.info(f"🔄 Adversarial iteration {iteration}/{max_iterations}")
 
+                # Verify the current plan
                 verification = self.verifier.verify_plan(plan)
                 verifier_feedback = self.verifier.generate_feedback(verification)
+                score = verification.get("score", 0)
+                approved = verification.get("overall_approval", False)
+                
+                # Log verification results
+                self.logger.info(f"Verification score: {score}/100, Approved: {approved}")
+                
+                # Store plan in history
+                plan_history.append({
+                    "iteration": iteration,
+                    "plan": plan.copy(),
+                    "score": score,
+                    "approved": approved
+                })
 
                 # Check if plan is approved
-                if verification.get("overall_approval", False):
-                    self.logger.info("Plan approved by verifier")
+                if approved:
+                    self.logger.info(f"✅ Plan approved by verifier (score: {score}/100)")
                     break
 
-                # Plan needs improvement - this would typically involve replanning
-                # For now, we'll continue with the original plan but log the issues
-                self.logger.warning(f"Plan needs revision (score: {verification.get('score', 0)})")
+                # Plan needs improvement - regenerate with feedback
+                self.logger.warning(f"❌ Plan rejected (score: {score}/100)")
+                
                 if iteration < max_iterations:
-                    # In a more advanced system, this would trigger replanning
-                    self.logger.info("Continuing with current plan despite issues")
+                    # Extract feedback details
+                    issues = verification.get("issues", [])
+                    suggestions = verification.get("suggestions", [])
+                    
+                    self.logger.info(f"Issues: {len(issues)}, Suggestions: {len(suggestions)}")
+                    self.logger.info("🔧 Regenerating plan with verifier feedback...")
+                    
+                    # CRITICAL: Actually regenerate the plan with feedback
+                    try:
+                        plan = self.planner.create_plan_with_feedback(
+                            user_query=user_query,
+                            previous_plan=plan,
+                            feedback=verifier_feedback,
+                            issues=issues,
+                            suggestions=suggestions,
+                            score=score
+                        )
+                        
+                        # Update explanation for the new plan
+                        plan_explanation = self.planner.explain_plan(plan)
+                        self.logger.info(f"✨ Generated improved plan (revision {plan.get('revision_number', iteration)})")
+                        
+                    except Exception as e:
+                        self.logger.error(f"Failed to regenerate plan: {e}")
+                        self.logger.warning("Proceeding with previous plan")
+                        break
+                else:
+                    self.logger.warning(f"⚠️ Max iterations ({max_iterations}) reached without approval")
 
-            # Phase 3: Execution
-            self.logger.info("Phase 3: Executing task pipeline...")
-            execution_results = self._execute_pipeline(plan)
+            # Determine if we should proceed with execution
+            final_score = verification.get("score", 0) if verification else 0
+            final_approval = verification.get("overall_approval", False) if verification else False
+            
+            # Phase 3: Execution Decision with Self-Correction Support
+            if not final_approval and final_score < 50:
+                # Plan is too bad to execute
+                self.logger.error(f"Plan quality too low (score: {final_score}/100). Refusing to execute.")
+                error_results = {
+                    "session_id": session_id,
+                    "user_query": user_query,
+                    "execution_time": time.time() - start_time,
+                    "iterations": iteration,
+                    "plan": plan,
+                    "plan_history": plan_history,
+                    "verification": verification,
+                    "verifier_feedback": verifier_feedback,
+                    "error": f"Plan quality insufficient (score: {final_score}/100). Cannot proceed with execution.",
+                    "status": "rejected_by_verifier"
+                }
+                self._log_session(error_results)
+                return error_results
+            
+            # Execute the plan (either approved or acceptable quality)
+            if final_approval:
+                self.logger.info("Phase 3: Executing approved task pipeline...")
+            else:
+                self.logger.warning(f"Phase 3: Executing plan with warnings (score: {final_score}/100)...")
+            
+            execution_results = self._execute_pipeline_with_selfcorrection(plan, user_query, max_retries=2)
 
             # Phase 4: Final verification
             self.logger.info("Phase 4: Final verification of results...")
@@ -140,16 +213,27 @@ class Orchestrator:
                 "execution_time": total_time,
                 "iterations": iteration,
                 "plan": plan,
+                "plan_history": plan_history,  # Track evolution of plans through iterations
                 "plan_explanation": plan_explanation,
                 "verification": verification,
                 "verifier_feedback": verifier_feedback,
                 "execution_results": execution_results,
                 "final_verification": final_verification,
-                "status": "completed" if verification.get("overall_approval", False) else "completed_with_issues"
+                "status": "completed" if verification.get("overall_approval", False) else "completed_with_issues",
+                "adversarial_loop_active": True,
+                "final_plan_score": final_score,
+                "plan_approved": final_approval,
+                "self_correction_used": execution_results[0].get("retry_count", 0) > 0 if execution_results else False
             }
 
-            # Log the session
+            # Log the session for learning/adaptation
             self._log_session(results)
+            
+            # Store successful plan patterns for learning
+            if final_approval and len(execution_results) > 0:
+                success_count = sum(1 for r in execution_results if r.get('status') == 'success')
+                if success_count >= len(execution_results) * 0.8:  # 80% success rate
+                    self._store_successful_plan_pattern(user_query, plan, final_score)
 
             return results
 
@@ -168,8 +252,93 @@ class Orchestrator:
             self._log_session(error_results)
             return error_results
 
+    def _execute_pipeline_with_selfcorrection(self, plan: Dict[str, Any], user_query: str, max_retries: int = 2) -> List[Dict[str, Any]]:
+        """Execute pipeline with self-correction capability."""
+        for attempt in range(max_retries + 1):
+            if attempt > 0:
+                self.logger.warning(f"🔄 Self-correction attempt {attempt}/{max_retries}")
+            
+            execution_results = self._execute_pipeline(plan)
+            
+            # Check if execution was successful
+            failed_tools = [r for r in execution_results if r.get('status') == 'error']
+            
+            if not failed_tools:
+                # All tools succeeded
+                return execution_results
+            
+            # Self-correction: analyze failures and retry with modified plan
+            if attempt < max_retries:
+                self.logger.warning(f"❌ {len(failed_tools)} tool(s) failed. Attempting self-correction...")
+                
+                # Create corrected plan
+                try:
+                    plan = self._create_corrected_plan(plan, failed_tools, user_query)
+                    self.logger.info("✨ Generated corrected plan, retrying...")
+                except Exception as e:
+                    self.logger.error(f"Failed to create corrected plan: {e}")
+                    break
+            else:
+                self.logger.error(f"⚠️ Max retries reached. Returning results with {len(failed_tools)} failures.")
+        
+        # Mark results with retry information
+        for result in execution_results:
+            result["retry_count"] = attempt
+        
+        return execution_results
+    
+    def _create_corrected_plan(self, plan: Dict[str, Any], failed_tools: List[Dict[str, Any]], user_query: str) -> Dict[str, Any]:
+        """Create a corrected plan based on execution failures."""
+        corrected_plan = plan.copy()
+        pipeline = list(plan.get("pipeline", []))
+        
+        # Analyze failures and apply corrections
+        for failed in failed_tools:
+            tool_name = failed.get("tool", "")
+            error = failed.get("error", "")
+            step_idx = failed.get("step", 1) - 1
+            
+            self.logger.info(f"Analyzing failure: {tool_name} - {error}")
+            
+            # Strategy 1: Tool not available -> Replace with fallback
+            if "not available" in error.lower():
+                fallback = self._get_fallback_tool(tool_name)
+                if fallback and step_idx < len(pipeline):
+                    pipeline[step_idx]["tool"] = fallback
+                    self.logger.info(f"Replaced {tool_name} with fallback: {fallback}")
+            
+            # Strategy 2: Tool failed -> Add error handling or skip
+            elif step_idx < len(pipeline):
+                # Remove the failed step if it's non-critical
+                if tool_name not in ["qa_engine", "wikipedia_search"]:
+                    pipeline.pop(step_idx)
+                    self.logger.info(f"Removed non-critical failed tool: {tool_name}")
+        
+        # Ensure qa_engine is still present
+        has_qa = any(step.get("tool") == "qa_engine" for step in pipeline)
+        if not has_qa:
+            pipeline.append({
+                "tool": "qa_engine",
+                "purpose": "Synthesize answer from available data",
+                "input": user_query
+            })
+        
+        corrected_plan["pipeline"] = pipeline
+        corrected_plan["self_corrected"] = True
+        return corrected_plan
+    
+    def _get_fallback_tool(self, tool_name: str) -> Optional[str]:
+        """Get fallback tool for a failed tool."""
+        fallback_map = {
+            "arxiv_summarizer": "wikipedia_search",
+            "news_fetcher": "wikipedia_search",
+            "data_plotter": None,  # No fallback for visualization
+            "document_writer": None,  # No fallback for document generation
+        }
+        return fallback_map.get(tool_name)
+    
     def _execute_pipeline(self, plan: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Execute the planned tool pipeline."""
+        """Execute the planned tool pipeline with context accumulation."""
         execution_results = []
         pipeline = plan.get("pipeline", [])
 
@@ -177,27 +346,19 @@ class Orchestrator:
             tool_name = step.get("tool", "")
             tool_input = step.get("input", "")
             
-            # For qa_engine, pass context from previous tool outputs
+            # Context accumulation: Pass previous outputs to qa_engine
             if tool_name == "qa_engine" and execution_results:
-                # Collect outputs from previous successful tools
                 context_parts = []
                 for prev_result in execution_results:
                     if prev_result.get("status") == "success":
                         prev_tool = prev_result.get("tool", "")
                         prev_output = prev_result.get("output", "")
-                        if prev_output and len(prev_output) > 10:  # Non-trivial output
+                        if prev_output and len(prev_output) > 10:
                             context_parts.append(f"[{prev_tool}]: {prev_output}")
                 
-                # Combine context with original question
                 if context_parts:
                     context = "\n\n".join(context_parts)
-                    tool_input = f"{tool_input}|||CONTEXT:{context}"  # Use special separator
-            
-            # For data_plotter, extract structured data from previous tool outputs
-            elif tool_name == "data_plotter" and execution_results:
-                extracted_data = self._extract_data_for_plotting(execution_results, plan.get("query", ""))
-                if extracted_data:
-                    tool_input = extracted_data
+                    tool_input = f"{tool_input}|||CONTEXT:{context}"
 
             self.logger.info(f"Executing step {step_num}: {tool_name}")
 
@@ -222,7 +383,7 @@ class Orchestrator:
                         "status": "success",
                         "execution_time": execution_time,
                         "output": output,
-                        "input": step.get("input", ""),  # Store original input, not modified
+                        "input": step.get("input", ""),  # Store original input
                         "purpose": step.get("purpose", "")
                     }
 
@@ -242,98 +403,128 @@ class Orchestrator:
 
         return execution_results
     
-    def _extract_data_for_plotting(self, execution_results: List[Dict[str, Any]], query: str) -> str:
-        """
-        Extract numerical data from previous tool outputs and format as JSON for data plotter.
-        
-        Args:
-            execution_results: Results from previously executed tools
-            query: Original user query
+    def _store_successful_plan_pattern(self, query: str, plan: Dict[str, Any], score: int):
+        """Store successful plan patterns for learning/adaptation."""
+        try:
+            # Create patterns directory if it doesn't exist
+            patterns_dir = os.path.join(self.logs_dir, "patterns")
+            if not os.path.exists(patterns_dir):
+                os.makedirs(patterns_dir)
             
-        Returns:
-            JSON string with data for plotting, or None if no data found
-        """
-        import json
-        import re
-        
-        # Try to extract meaningful data from tool outputs
-        data_points = {}
-        
-        for result in execution_results:
-            if result.get("status") != "success":
-                continue
-                
-            tool_name = result.get("tool", "")
-            output = result.get("output", "")
+            # Extract key features from query
+            query_features = self._extract_query_features(query)
             
-            # Extract data based on tool type
-            if tool_name == "arxiv_summarizer":
-                # Count papers found
-                paper_count = output.lower().count("arxiv id:")
-                if paper_count > 0:
-                    data_points["Research Papers Found"] = paper_count
-                    
-            elif tool_name == "news_fetcher":
-                # Count articles
-                article_count = output.lower().count("article")
-                if article_count > 0:
-                    data_points["News Articles"] = min(article_count, 10)  # Cap at 10
-                    
-            elif tool_name == "sentiment_analyzer":
-                # Extract sentiment scores if present
-                positive_match = re.search(r'positive[:\s]+(\d+\.?\d*)%?', output.lower())
-                negative_match = re.search(r'negative[:\s]+(\d+\.?\d*)%?', output.lower())
-                neutral_match = re.search(r'neutral[:\s]+(\d+\.?\d*)%?', output.lower())
-                
-                if positive_match:
-                    data_points["Positive"] = float(positive_match.group(1))
-                if negative_match:
-                    data_points["Negative"] = float(negative_match.group(1))
-                if neutral_match:
-                    data_points["Neutral"] = float(neutral_match.group(1))
-        
-        # If we found some data, format it
-        if data_points:
-            self.logger.info(f"Extracted data for plotting: {data_points}")
-            return json.dumps(data_points)
-        
-        # Fallback: Create meaningful default data based on query keywords
-        self.logger.info("No numerical data extracted, creating topic-based visualization")
-        
-        # Analyze query to create relevant categories
+            # Create pattern entry
+            pattern = {
+                "timestamp": datetime.now().isoformat(),
+                "query": query,
+                "query_features": query_features,
+                "plan": {
+                    "pipeline": plan.get("pipeline", []),
+                    "reasoning": plan.get("reasoning", ""),
+                    "tools_used": [step.get("tool") for step in plan.get("pipeline", [])]
+                },
+                "score": score,
+                "success": True
+            }
+            
+            # Store pattern
+            pattern_file = os.path.join(patterns_dir, f"pattern_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+            with open(pattern_file, 'w') as f:
+                json.dump(pattern, f, indent=2)
+            
+            self.logger.info(f"✅ Stored successful plan pattern: {pattern_file}")
+            
+        except Exception as e:
+            self.logger.warning(f"Failed to store plan pattern: {e}")
+    
+    def _extract_query_features(self, query: str) -> Dict[str, Any]:
+        """Extract features from query for pattern matching."""
         query_lower = query.lower()
         
-        if any(word in query_lower for word in ['ai', 'artificial intelligence', 'machine learning', 'deep learning']):
-            data_points = {
-                "Research Papers": 8,
-                "Applications": 15,
-                "Breakthroughs": 12,
-                "Active Projects": 20
-            }
-        elif any(word in query_lower for word in ['climate', 'weather', 'environment']):
-            data_points = {
-                "ML Models": 6,
-                "Prediction Systems": 10,
-                "Data Sources": 8,
-                "Research Areas": 12
-            }
-        elif any(word in query_lower for word in ['health', 'medical', 'healthcare']):
-            data_points = {
-                "Diagnostic Tools": 9,
-                "Treatment Systems": 7,
-                "Research Studies": 11,
-                "Active Trials": 5
-            }
-        else:
-            # Generic topic-based data
-            data_points = {
-                "Research Papers": 10,
-                "Key Applications": 15,
-                "Recent Developments": 12,
-                "Active Projects": 18
-            }
+        features = {
+            "length": len(query.split()),
+            "has_question": "?" in query,
+            "type": self._classify_query_type(query_lower),
+            "keywords": []
+        }
         
-        return json.dumps(data_points)
+        # Extract domain keywords
+        domains = [
+            ("ai", ["ai", "artificial intelligence", "machine learning", "deep learning", "neural"]),
+            ("science", ["research", "study", "scientific", "academic", "paper"]),
+            ("news", ["news", "recent", "latest", "current", "update"]),
+            ("analysis", ["analyze", "sentiment", "trend", "pattern", "data"]),
+            ("technical", ["how", "technical", "implement", "code", "algorithm"])
+        ]
+        
+        for domain, keywords in domains:
+            if any(kw in query_lower for kw in keywords):
+                features["keywords"].append(domain)
+        
+        return features
+    
+    def _classify_query_type(self, query: str) -> str:
+        """Classify query into type categories."""
+        if any(word in query for word in ["what", "explain", "define"]):
+            return "explanation"
+        elif any(word in query for word in ["how", "implement", "create"]):
+            return "how-to"
+        elif any(word in query for word in ["analyze", "sentiment", "trend"]):
+            return "analysis"
+        elif any(word in query for word in ["research", "find", "papers"]):
+            return "research"
+        else:
+            return "general"
+    
+    def get_similar_successful_patterns(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
+        """Retrieve similar successful patterns for learning."""
+        try:
+            patterns_dir = os.path.join(self.logs_dir, "patterns")
+            if not os.path.exists(patterns_dir):
+                return []
+            
+            query_features = self._extract_query_features(query)
+            patterns = []
+            
+            # Load all patterns
+            for pattern_file in os.listdir(patterns_dir):
+                if pattern_file.endswith('.json'):
+                    with open(os.path.join(patterns_dir, pattern_file), 'r') as f:
+                        pattern = json.load(f)
+                        # Calculate similarity
+                        similarity = self._calculate_pattern_similarity(query_features, pattern.get("query_features", {}))
+                        pattern["similarity"] = similarity
+                        patterns.append(pattern)
+            
+            # Sort by similarity and return top matches
+            patterns.sort(key=lambda x: x.get("similarity", 0), reverse=True)
+            return patterns[:limit]
+            
+        except Exception as e:
+            self.logger.warning(f"Failed to retrieve patterns: {e}")
+            return []
+    
+    def _calculate_pattern_similarity(self, features1: Dict, features2: Dict) -> float:
+        """Calculate similarity between two query feature sets."""
+        score = 0.0
+        
+        # Type match (40%)
+        if features1.get("type") == features2.get("type"):
+            score += 0.4
+        
+        # Keyword overlap (40%)
+        keywords1 = set(features1.get("keywords", []))
+        keywords2 = set(features2.get("keywords", []))
+        if keywords1 and keywords2:
+            overlap = len(keywords1 & keywords2) / len(keywords1 | keywords2)
+            score += 0.4 * overlap
+        
+        # Question type match (20%)
+        if features1.get("has_question") == features2.get("has_question"):
+            score += 0.2
+        
+        return score
 
     def _log_session(self, results: Dict[str, Any]):
         """Log the session results for traceability."""
@@ -360,10 +551,39 @@ class Orchestrator:
         summary += f"**Iterations:** {results.get('iterations', 0)}\n"
         summary += f"**Status:** {results.get('status', 'Unknown')}\n\n"
 
+        # Adversarial Loop Summary
+        plan_history = results.get('plan_history', [])
+        if len(plan_history) > 1:
+            summary += "**🔄 Adversarial Loop Evolution:**\n"
+            for entry in plan_history[1:]:
+                iter_num = entry.get('iteration', 0)
+                score = entry.get('score', 0)
+                approved = entry.get('approved', False)
+                status_icon = "✅" if approved else "❌"
+                summary += f"• Iteration {iter_num}: Score {score}/100 {status_icon}\n"
+            
+            if len(plan_history) > 2:
+                first_score = plan_history[1].get('score', 0)
+                last_score = plan_history[-1].get('score', 0)
+                improvement = last_score - first_score
+                if improvement > 0:
+                    summary += f"• **Improvement:** +{improvement} points through adversarial refinement\n"
+            summary += "\n"
+        
+        # Self-correction summary
+        if results.get('self_correction_used', False):
+            summary += "**🔧 Self-Correction Applied:**\n"
+            summary += "• System detected execution failures and auto-corrected\n\n"
+
         # Plan summary
         plan = results.get('plan', {})
-        summary += "**🎯 Plan Overview:**\n"
+        revision_num = plan.get('revision_number', 0)
+        summary += "**🎯 Final Plan Overview:**\n"
         summary += f"• Steps: {len(plan.get('pipeline', []))}\n"
+        if revision_num > 0:
+            summary += f"• Revision: {revision_num} (improved through feedback)\n"
+        if plan.get('self_corrected', False):
+            summary += f"• Self-corrected: Yes\n"
         summary += f"• Reasoning: {plan.get('reasoning', 'No reasoning')[:100]}...\n\n"
 
         # Verification summary
@@ -371,7 +591,7 @@ class Orchestrator:
         score = verification.get('score', 0)
         approval = verification.get('overall_approval', False)
         summary += "**✅ Verification Results:**\n"
-        summary += f"• Score: {score}/100\n"
+        summary += f"• Final Score: {score}/100\n"
         summary += f"• Approved: {'Yes' if approval else 'No'}\n"
         if verification.get('issues'):
             summary += f"• Issues: {len(verification['issues'])}\n"
