@@ -1,0 +1,39 @@
+{
+  "timestamp": "2025-10-27T10:33:39.204792",
+  "query": "give code for N-Queens problem.",
+  "query_features": {
+    "length": 5,
+    "has_question": false,
+    "type": "general",
+    "keywords": [
+      "technical"
+    ]
+  },
+  "plan": {
+    "pipeline": [
+      {
+        "tool": "wikipedia_search",
+        "purpose": "Get foundational knowledge about the topic",
+        "input": "give code for N-Queens problem."
+      },
+      {
+        "tool": "news_fetcher",
+        "purpose": "Find recent developments and news",
+        "input": "give code for N-Queens problem."
+      },
+      {
+        "tool": "arxiv_summarizer",
+        "purpose": "Get academic research and papers",
+        "input": "give code for N-Queens problem."
+      }
+    ],
+    "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
+    "tools_used": [
+      "wikipedia_search",
+      "news_fetcher",
+      "arxiv_summarizer"
+    ]
+  },
+  "score": 85,
+  "success": true
+}

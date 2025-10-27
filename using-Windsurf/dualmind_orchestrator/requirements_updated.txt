@@ -1,0 +1,38 @@
+# DualMind Orchestrator - Updated Requirements
+# For Scientific Research Enhancement
+
+# Core Dependencies (Already installed)
+requests>=2.31.0
+gradio>=4.0.0
+python-dotenv>=1.0.0
+
+# LLM and AI
+# openai  # Not needed - using OpenRouter directly with requests
+
+# Sentiment Analysis (Already installed)
+# transformers>=4.30.0
+# torch>=2.0.0  # Optional for HuggingFace models
+
+# Data Visualization (Already installed)
+matplotlib>=3.7.0
+
+# Document Generation (Already installed)
+# fpdf>=1.7.2
+
+# NEW: PDF Parsing (For research paper analysis)
+PyPDF2>=3.0.0           # Basic PDF text extraction
+pdfplumber>=0.10.0      # Advanced PDF parsing (recommended)
+
+# Scientific Research APIs (All free, no extra packages needed)
+# - Semantic Scholar: Uses requests (already installed)
+# - PubMed/NCBI: Uses requests + xml (standard library)
+# - ArXiv: Uses requests (already installed)
+
+# Optional: Enhanced PDF parsing
+# pytesseract>=0.3.10    # For OCR on image-based PDFs
+# Pillow>=10.0.0         # Image processing for OCR
+
+# For development/testing
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.0.0

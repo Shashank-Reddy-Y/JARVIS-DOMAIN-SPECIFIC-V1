@@ -1,0 +1,927 @@
+2025-10-15 12:42:54,959 - __main__ - INFO - Logging initialized
+2025-10-15 12:42:54,960 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 12:42:54,962 - __main__ - ERROR - Error starting DualMind Orchestrator: f-string: expecting '}' (ui.py, line 102)
+2025-10-15 12:42:55,045 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-15 12:43:56,211 - __main__ - INFO - Logging initialized
+2025-10-15 12:43:56,212 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 12:43:56,415 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-15 12:43:58,102 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 12:43:58,718 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 12:43:59,457 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 12:44:00,459 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 12:44:02,579 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 12:47:16,516 - orchestrator - INFO - Starting new session: session_20251015_124716
+2025-10-15 12:47:16,517 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 12:47:16,518 - orchestrator - INFO - Verification iteration 1
+2025-10-15 12:47:16,518 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 12:47:16,519 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 12:47:16,519 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 12:47:27,717 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Summarize_recent_ai_breakthroughs
+2025-10-15 12:47:27,720 - orchestrator - INFO - Executing step 2: qa_engine
+2025-10-15 12:47:27,721 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 12:47:27,733 - orchestrator - INFO - Session logged to: logs\session_20251015_124727.json
+2025-10-15 12:49:30,947 - __main__ - INFO - Logging initialized
+2025-10-15 12:49:30,948 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 12:49:31,194 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-15 12:49:32,429 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 12:49:32,701 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 12:49:33,953 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 12:49:34,574 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 12:49:36,656 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 12:49:54,968 - orchestrator - INFO - Starting new session: session_20251015_124954
+2025-10-15 12:49:54,969 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 12:49:54,972 - orchestrator - INFO - Verification iteration 1
+2025-10-15 12:49:54,972 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 12:49:54,972 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 12:49:54,973 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 12:50:05,792 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Summarize_recent_ai_breakthroughs
+2025-10-15 12:50:05,797 - orchestrator - INFO - Executing step 2: qa_engine
+2025-10-15 12:50:05,797 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 12:50:05,856 - orchestrator - INFO - Session logged to: logs\session_20251015_125005.json
+2025-10-15 13:46:50,669 - __main__ - INFO - Logging initialized
+2025-10-15 13:46:50,669 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 13:46:51,577 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-15 13:46:52,075 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 13:46:52,446 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 13:46:53,311 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 13:46:54,215 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 13:46:56,357 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 13:48:08,347 - orchestrator - INFO - Starting new session: session_20251015_134808
+2025-10-15 13:48:08,348 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 13:48:08,348 - orchestrator - INFO - Verification iteration 1
+2025-10-15 13:48:08,349 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 13:48:08,349 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 13:48:08,350 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 13:48:11,678 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Summarize_recent_AI_breakthroughs_in_climate_research_and_generate_a_visual_report.
+2025-10-15 13:48:11,681 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-15 13:48:11,681 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-15 13:48:13,284 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 13:48:13,289 - orchestrator - INFO - Session logged to: logs\session_20251015_134813.json
+2025-10-15 14:02:29,536 - __main__ - INFO - Logging initialized
+2025-10-15 14:02:29,536 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 14:02:30,716 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-15 14:02:30,835 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 14:02:31,425 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 14:02:32,119 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 14:02:32,943 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 14:02:35,018 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 14:07:08,126 - orchestrator - INFO - Starting new session: session_20251015_140708
+2025-10-15 14:07:08,127 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 14:07:08,129 - orchestrator - INFO - Verification iteration 1
+2025-10-15 14:07:08,130 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 14:07:08,130 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 14:07:08,131 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 14:07:09,695 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Create_a_report_on_machine_learning_applications_in_healthcare_with_academic_sources.
+2025-10-15 14:07:09,700 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-15 14:07:09,701 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-15 14:07:11,149 - orchestrator - INFO - Executing step 4: document_writer
+2025-10-15 14:07:11,163 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 14:07:11,171 - orchestrator - INFO - Session logged to: logs\session_20251015_140711.json
+2025-10-15 20:37:58,522 - __main__ - INFO - Logging initialized
+2025-10-15 20:37:58,523 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 20:38:00,257 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 20:38:00,631 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 20:38:01,326 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 20:38:02,453 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 20:38:04,533 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 20:38:20,019 - orchestrator - INFO - Starting new session: session_20251015_203820
+2025-10-15 20:38:20,024 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 20:38:20,025 - orchestrator - INFO - Verification iteration 1
+2025-10-15 20:38:20,027 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 20:38:20,030 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 20:38:20,034 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 20:38:21,573 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Research_the_latest_developments_in_quantum_computing_and_create_a_comprehensive_overview.
+2025-10-15 20:38:21,586 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-15 20:38:21,588 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-15 20:38:23,034 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 20:38:23,042 - orchestrator - INFO - Session logged to: logs\session_20251015_203823.json
+2025-10-15 20:39:48,556 - orchestrator - INFO - Starting new session: session_20251015_203948
+2025-10-15 20:39:48,560 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 20:39:48,566 - orchestrator - INFO - Verification iteration 1
+2025-10-15 20:39:48,567 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 20:39:48,568 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 20:39:48,568 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 20:39:50,029 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 403 Client Error: Forbidden for url: https://en.wikipedia.org/api/rest_v1/page/summary/talk_about_geoffery_Hinton%0A
+2025-10-15 20:39:50,033 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-15 20:39:50,034 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-15 20:39:50,604 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 20:39:50,617 - orchestrator - INFO - Session logged to: logs\session_20251015_203950.json
+2025-10-15 20:41:07,372 - orchestrator - INFO - Starting new session: session_20251015_204107
+2025-10-15 20:41:07,374 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 20:41:07,375 - orchestrator - INFO - Verification iteration 1
+2025-10-15 20:41:07,375 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 20:41:07,376 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 20:41:07,378 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 20:41:09,120 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Summarize_research_paper_%22Learning_representations_by_backpropagation_errors%22
+2025-10-15 20:41:09,125 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-15 20:41:09,125 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-15 20:41:09,660 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 20:41:09,663 - orchestrator - INFO - Session logged to: logs\session_20251015_204109.json
+2025-10-15 20:57:44,929 - orchestrator - INFO - Starting new session: session_20251015_205744
+2025-10-15 20:57:44,931 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 20:57:44,932 - orchestrator - INFO - Verification iteration 1
+2025-10-15 20:57:44,933 - orchestrator - INFO - Plan approved by verifier
+2025-10-15 20:57:44,934 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 20:57:44,935 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-15 20:57:45,597 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Summarize_research_paper_%22Learning_representations_by_backpropagation_errors%22
+2025-10-15 20:57:45,600 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-15 20:57:45,602 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-15 20:57:45,783 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 20:57:45,787 - orchestrator - INFO - Session logged to: logs\session_20251015_205745.json
+2025-10-15 20:58:26,419 - __main__ - INFO - Logging initialized
+2025-10-15 20:58:26,419 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 20:58:27,875 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 20:58:28,233 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 20:58:29,023 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 20:58:30,048 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 20:58:32,198 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 20:58:40,997 - orchestrator - INFO - Starting new session: session_20251015_205840
+2025-10-15 20:58:40,998 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 20:58:41,053 - planner - ERROR - Error creating plan: '\n    "query"'
+2025-10-15 20:58:41,054 - orchestrator - INFO - Verification iteration 1
+2025-10-15 20:58:41,055 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 20:58:41,058 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 20:58:41,059 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-15 20:58:41,060 - orchestrator - INFO - Verification iteration 2
+2025-10-15 20:58:41,063 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 20:58:41,064 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 20:58:41,065 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-15 20:58:41,071 - orchestrator - INFO - Verification iteration 3
+2025-10-15 20:58:41,072 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 20:58:41,074 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 20:58:41,078 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 20:58:41,081 - orchestrator - INFO - Executing step 1: qa_engine
+2025-10-15 20:58:47,401 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 20:58:47,407 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 20:58:47,410 - orchestrator - INFO - Session logged to: logs\session_20251015_205847.json
+2025-10-15 21:10:37,349 - __main__ - INFO - Logging initialized
+2025-10-15 21:10:37,350 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 21:10:41,837 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 21:10:42,076 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 21:10:42,805 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 21:10:44,203 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 21:10:46,305 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 21:10:53,506 - orchestrator - INFO - Starting new session: session_20251015_211053
+2025-10-15 21:10:53,509 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 21:10:53,511 - planner - ERROR - Error creating plan: '\n    "query"'
+2025-10-15 21:10:53,511 - orchestrator - INFO - Verification iteration 1
+2025-10-15 21:10:53,511 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:10:53,513 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 21:10:53,513 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-15 21:10:53,515 - orchestrator - INFO - Verification iteration 2
+2025-10-15 21:10:53,517 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:10:53,517 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 21:10:53,519 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-15 21:10:53,521 - orchestrator - INFO - Verification iteration 3
+2025-10-15 21:10:53,523 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:10:53,523 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 21:10:53,523 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 21:10:53,524 - orchestrator - INFO - Executing step 1: qa_engine
+2025-10-15 21:10:59,841 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 21:10:59,843 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:10:59,848 - orchestrator - INFO - Session logged to: logs\session_20251015_211059.json
+2025-10-15 21:15:23,394 - __main__ - INFO - Logging initialized
+2025-10-15 21:15:23,395 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-15 21:15:25,212 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-15 21:15:25,550 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-15 21:15:26,337 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-15 21:15:27,362 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-15 21:15:29,430 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-15 21:15:39,385 - orchestrator - INFO - Starting new session: session_20251015_211539
+2025-10-15 21:15:39,386 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-15 21:15:39,386 - planner - ERROR - Error creating plan: '\n    "query"'
+2025-10-15 21:15:39,386 - orchestrator - INFO - Verification iteration 1
+2025-10-15 21:15:39,387 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:15:39,388 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 21:15:39,388 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-15 21:15:39,389 - orchestrator - INFO - Verification iteration 2
+2025-10-15 21:15:39,389 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:15:39,390 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 21:15:39,391 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-15 21:15:39,391 - orchestrator - INFO - Verification iteration 3
+2025-10-15 21:15:39,392 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:15:39,393 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-15 21:15:39,394 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-15 21:15:39,394 - orchestrator - INFO - Executing step 1: qa_engine
+2025-10-15 21:15:46,019 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-15 21:15:46,026 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-15 21:15:46,032 - orchestrator - INFO - Session logged to: logs\session_20251015_211546.json
+2025-10-19 19:07:53,346 - __main__ - INFO - Logging initialized
+2025-10-19 19:07:53,347 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-19 19:07:55,394 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-19 19:07:55,688 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-19 19:07:56,345 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-19 19:07:57,644 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-19 19:07:59,905 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-19 19:08:28,538 - orchestrator - INFO - Starting new session: session_20251019_190828
+2025-10-19 19:08:28,540 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-19 19:08:28,541 - planner - ERROR - Error creating plan: '\n    "query"'
+2025-10-19 19:08:28,542 - orchestrator - INFO - Verification iteration 1
+2025-10-19 19:08:28,542 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-19 19:08:28,549 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-19 19:08:28,549 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-19 19:08:28,550 - orchestrator - INFO - Verification iteration 2
+2025-10-19 19:08:28,550 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-19 19:08:28,550 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-19 19:08:28,550 - orchestrator - INFO - Continuing with current plan despite issues
+2025-10-19 19:08:28,551 - orchestrator - INFO - Verification iteration 3
+2025-10-19 19:08:28,551 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-19 19:08:28,552 - orchestrator - WARNING - Plan needs revision (score: 0)
+2025-10-19 19:08:28,552 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-19 19:08:28,552 - orchestrator - INFO - Executing step 1: qa_engine
+2025-10-19 19:08:46,466 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-19 19:08:46,466 - verifier - ERROR - Error verifying plan: '\n    "overall_approval"'
+2025-10-19 19:08:46,470 - orchestrator - INFO - Session logged to: logs\session_20251019_190846.json
+2025-10-19 19:19:28,242 - __main__ - INFO - Logging initialized
+2025-10-19 19:19:28,242 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-19 19:19:29,660 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-19 19:19:29,890 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-19 19:19:30,624 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-19 19:19:31,779 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-19 19:19:33,837 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-19 19:20:21,642 - orchestrator - INFO - Starting new session: session_20251019_192021
+2025-10-19 19:20:21,650 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-19 19:20:21,651 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:20:32,623 - llm_client - INFO - LLM API call successful
+2025-10-19 19:20:32,628 - planner - INFO - Successfully created LLM-based plan
+2025-10-19 19:20:32,629 - orchestrator - INFO - Verification iteration 1
+2025-10-19 19:20:32,632 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:20:38,764 - llm_client - INFO - LLM API call successful
+2025-10-19 19:20:38,767 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:20:38,768 - orchestrator - INFO - Plan approved by verifier
+2025-10-19 19:20:38,769 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-19 19:20:38,769 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-19 19:20:39,498 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-19 19:20:39,498 - orchestrator - INFO - Executing step 3: data_plotter
+2025-10-19 19:20:39,500 - orchestrator - INFO - Executing step 4: document_writer
+2025-10-19 19:20:39,501 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-19 19:20:39,502 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:20:47,001 - llm_client - INFO - LLM API call successful
+2025-10-19 19:20:47,008 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-19 19:20:47,013 - orchestrator - INFO - Session logged to: logs\session_20251019_192047.json
+2025-10-19 19:26:26,544 - __main__ - INFO - Logging initialized
+2025-10-19 19:26:26,545 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-19 19:26:28,708 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-19 19:26:28,922 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-19 19:26:29,808 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-19 19:26:30,899 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-19 19:26:33,256 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-19 19:26:46,531 - orchestrator - INFO - Starting new session: session_20251019_192646
+2025-10-19 19:26:46,628 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-19 19:26:46,635 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:26:54,159 - llm_client - INFO - LLM API call successful
+2025-10-19 19:26:54,162 - planner - INFO - Successfully created LLM-based plan
+2025-10-19 19:26:54,163 - orchestrator - INFO - Verification iteration 1
+2025-10-19 19:26:54,164 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:26:59,385 - llm_client - INFO - LLM API call successful
+2025-10-19 19:26:59,388 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-19 19:26:59,389 - orchestrator - INFO - Plan approved by verifier
+2025-10-19 19:26:59,390 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-19 19:26:59,390 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-19 19:26:59,936 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-19 19:26:59,937 - orchestrator - INFO - Executing step 3: data_plotter
+2025-10-19 19:26:59,937 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: structured data from previous tools
+2025-10-19 19:27:00,500 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-19 19:27:00,501 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:27:05,033 - llm_client - INFO - LLM API call successful
+2025-10-19 19:27:05,034 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-19 19:27:05,035 - orchestrator - INFO - Session logged to: logs\session_20251019_192705.json
+2025-10-19 19:32:33,158 - __main__ - INFO - Logging initialized
+2025-10-19 19:32:33,159 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-19 19:32:34,692 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-19 19:32:34,966 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-19 19:32:35,785 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-19 19:32:36,845 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-19 19:32:38,922 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-19 19:33:27,323 - orchestrator - INFO - Starting new session: session_20251019_193327
+2025-10-19 19:33:27,324 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-19 19:33:27,325 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:33:37,838 - llm_client - INFO - LLM API call successful
+2025-10-19 19:33:37,846 - planner - INFO - Successfully parsed and validated LLM plan with 2 steps
+2025-10-19 19:33:37,846 - planner - INFO - Successfully created LLM-based plan
+2025-10-19 19:33:37,847 - orchestrator - INFO - Verification iteration 1
+2025-10-19 19:33:37,848 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:33:44,799 - llm_client - INFO - LLM API call successful
+2025-10-19 19:33:44,804 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-19 19:33:44,811 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:33:44,815 - orchestrator - INFO - Plan approved by verifier
+2025-10-19 19:33:44,822 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-19 19:33:44,826 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-19 19:33:45,381 - orchestrator - INFO - Executing step 2: data_plotter
+2025-10-19 19:33:45,384 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: climate research, AI breakthroughs
+2025-10-19 19:33:45,663 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-19 19:33:45,665 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:33:50,550 - llm_client - INFO - LLM API call successful
+2025-10-19 19:33:50,555 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-19 19:33:50,559 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:33:50,562 - orchestrator - INFO - Session logged to: logs\session_20251019_193350.json
+2025-10-19 19:35:02,190 - orchestrator - INFO - Starting new session: session_20251019_193502
+2025-10-19 19:35:02,193 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-19 19:35:02,194 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:35:13,074 - llm_client - INFO - LLM API call successful
+2025-10-19 19:35:13,077 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-19 19:35:13,078 - planner - INFO - Successfully created LLM-based plan
+2025-10-19 19:35:13,078 - orchestrator - INFO - Verification iteration 1
+2025-10-19 19:35:13,079 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:35:19,217 - llm_client - INFO - LLM API call successful
+2025-10-19 19:35:19,228 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-19 19:35:19,229 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:35:19,230 - orchestrator - INFO - Plan approved by verifier
+2025-10-19 19:35:19,231 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-19 19:35:19,233 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-19 19:35:19,933 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-19 19:35:21,082 - orchestrator - INFO - Executing step 3: news_fetcher
+2025-10-19 19:35:21,083 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-19 19:35:21,084 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:35:28,804 - llm_client - INFO - LLM API call successful
+2025-10-19 19:35:28,811 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-19 19:35:28,811 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:35:28,842 - orchestrator - INFO - Session logged to: logs\session_20251019_193528.json
+2025-10-19 19:37:32,036 - orchestrator - INFO - Starting new session: session_20251019_193732
+2025-10-19 19:37:32,037 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-19 19:37:32,038 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:37:36,798 - llm_client - INFO - LLM API call successful
+2025-10-19 19:37:36,802 - planner - INFO - Successfully parsed and validated LLM plan with 1 steps
+2025-10-19 19:37:36,803 - planner - INFO - Successfully created LLM-based plan
+2025-10-19 19:37:36,803 - orchestrator - INFO - Verification iteration 1
+2025-10-19 19:37:36,804 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:37:41,049 - llm_client - INFO - LLM API call successful
+2025-10-19 19:37:41,053 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-19 19:37:41,054 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:37:41,054 - orchestrator - INFO - Plan approved by verifier
+2025-10-19 19:37:41,055 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-19 19:37:41,056 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-19 19:37:41,767 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-19 19:37:41,768 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-19 19:37:48,876 - llm_client - INFO - LLM API call successful
+2025-10-19 19:37:48,880 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-19 19:37:48,880 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-19 19:37:48,943 - orchestrator - INFO - Session logged to: logs\session_20251019_193748.json
+2025-10-21 17:32:30,418 - __main__ - INFO - Logging initialized
+2025-10-21 17:32:30,419 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 17:32:32,107 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 17:32:32,368 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 17:32:33,350 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 17:32:34,309 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 17:32:36,490 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 17:42:16,965 - orchestrator - INFO - Starting new session: session_20251021_174216
+2025-10-21 17:42:16,966 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 17:42:16,967 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:42:25,305 - llm_client - INFO - LLM API call successful
+2025-10-21 17:42:25,313 - planner - INFO - Successfully parsed and validated LLM plan with 2 steps
+2025-10-21 17:42:25,314 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 17:42:25,348 - orchestrator - INFO - Verification iteration 1
+2025-10-21 17:42:25,351 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:42:30,589 - llm_client - INFO - LLM API call successful
+2025-10-21 17:42:30,593 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 17:42:30,598 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:42:30,599 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 17:42:30,601 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 17:42:30,603 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 17:42:31,250 - orchestrator - INFO - Executing step 2: data_plotter
+2025-10-21 17:42:31,252 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: climate research, AI breakthroughs
+2025-10-21 17:42:32,354 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 17:42:32,356 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:42:37,142 - llm_client - INFO - LLM API call successful
+2025-10-21 17:42:37,148 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 17:42:37,150 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:42:37,155 - orchestrator - INFO - Session logged to: logs\session_20251021_174237.json
+2025-10-21 17:45:07,270 - __main__ - INFO - Logging initialized
+2025-10-21 17:45:07,271 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 17:45:09,001 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 17:45:09,233 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 17:45:09,991 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 17:45:11,128 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 17:45:13,292 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 17:45:37,257 - orchestrator - INFO - Starting new session: session_20251021_174537
+2025-10-21 17:45:37,259 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 17:45:37,259 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:45:48,890 - llm_client - INFO - LLM API call successful
+2025-10-21 17:45:48,896 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 17:45:48,897 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 17:45:48,900 - orchestrator - INFO - Verification iteration 1
+2025-10-21 17:45:48,906 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:45:56,351 - llm_client - INFO - LLM API call successful
+2025-10-21 17:45:56,355 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 17:45:56,356 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:45:56,357 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 17:45:56,357 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 17:45:56,359 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 17:45:56,942 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-21 17:45:58,120 - orchestrator - INFO - Executing step 3: news_fetcher
+2025-10-21 17:45:58,121 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 17:45:58,122 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:46:07,831 - llm_client - INFO - LLM API call successful
+2025-10-21 17:46:07,835 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 17:46:07,835 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:46:07,840 - orchestrator - INFO - Session logged to: logs\session_20251021_174607.json
+2025-10-21 17:50:45,517 - __main__ - INFO - Logging initialized
+2025-10-21 17:50:45,517 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 17:50:47,559 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 17:50:47,781 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 17:50:48,706 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 17:50:49,730 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 17:50:51,823 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 17:51:06,188 - orchestrator - INFO - Starting new session: session_20251021_175106
+2025-10-21 17:51:06,190 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 17:51:06,191 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:51:25,415 - llm_client - INFO - LLM API call successful
+2025-10-21 17:51:25,423 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 17:51:25,424 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 17:51:25,425 - orchestrator - INFO - Verification iteration 1
+2025-10-21 17:51:25,425 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:51:34,466 - llm_client - INFO - LLM API call successful
+2025-10-21 17:51:34,469 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 17:51:34,470 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:51:34,471 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 17:51:34,471 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 17:51:34,471 - orchestrator - INFO - Executing step 1: news_fetcher
+2025-10-21 17:51:34,473 - orchestrator - INFO - Executing step 2: sentiment_analyzer
+2025-10-21 17:51:34,858 - root - WARNING - Could not load sentiment analysis model: name 'torch' is not defined. Using fallback method.
+2025-10-21 17:51:34,860 - orchestrator - INFO - Executing step 3: data_plotter
+2025-10-21 17:51:34,861 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: sentiment analysis results
+2025-10-21 17:51:35,774 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 17:51:35,775 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:51:49,756 - llm_client - INFO - LLM API call successful
+2025-10-21 17:51:49,761 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 17:51:49,762 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:51:49,780 - orchestrator - INFO - Session logged to: logs\session_20251021_175149.json
+2025-10-21 17:53:22,777 - orchestrator - INFO - Starting new session: session_20251021_175322
+2025-10-21 17:53:22,778 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 17:53:22,779 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:53:35,143 - llm_client - INFO - LLM API call successful
+2025-10-21 17:53:35,146 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 17:53:35,146 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 17:53:35,148 - orchestrator - INFO - Verification iteration 1
+2025-10-21 17:53:35,150 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:53:45,373 - llm_client - INFO - LLM API call successful
+2025-10-21 17:53:45,377 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 17:53:45,377 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 17:53:45,379 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 17:53:45,391 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 17:53:45,397 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 17:53:46,013 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-21 17:53:50,405 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/machine_learning_applications_in_healthcare
+2025-10-21 17:53:50,416 - orchestrator - INFO - Executing step 3: data_plotter
+2025-10-21 17:53:50,417 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: data on machine learning applications in healthcare
+2025-10-21 17:53:51,478 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 17:53:51,482 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 17:53:53,999 - llm_client - ERROR - LLM API request failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-21 17:53:54,004 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-21 17:53:54,027 - orchestrator - INFO - Session logged to: logs\session_20251021_175354.json
+2025-10-21 18:01:00,196 - __main__ - INFO - Logging initialized
+2025-10-21 18:01:00,196 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:01:03,797 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:01:03,992 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:01:04,716 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:01:06,185 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:01:08,256 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:01:17,333 - orchestrator - INFO - Starting new session: session_20251021_180117
+2025-10-21 18:01:17,340 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:01:17,341 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:01:26,750 - llm_client - INFO - LLM API call successful
+2025-10-21 18:01:26,757 - planner - INFO - Successfully parsed and validated LLM plan with 2 steps
+2025-10-21 18:01:26,757 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:01:26,758 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:01:26,758 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:01:29,984 - llm_client - INFO - LLM API call successful
+2025-10-21 18:01:29,987 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:01:29,988 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:01:29,988 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:01:29,989 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:01:29,989 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 18:01:30,522 - orchestrator - INFO - Executing step 2: data_plotter
+2025-10-21 18:01:30,523 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: arxiv_summarizer output
+2025-10-21 18:01:30,858 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:01:30,859 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:01:39,026 - llm_client - INFO - LLM API call successful
+2025-10-21 18:01:39,029 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 18:01:39,030 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:01:39,034 - orchestrator - INFO - Session logged to: logs\session_20251021_180139.json
+2025-10-21 18:06:50,290 - __main__ - INFO - Logging initialized
+2025-10-21 18:06:50,291 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:06:53,332 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:06:53,523 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:06:54,231 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:06:55,670 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:06:57,730 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:07:13,039 - orchestrator - INFO - Starting new session: session_20251021_180713
+2025-10-21 18:07:13,040 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:07:13,040 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:07:17,817 - llm_client - INFO - LLM API call successful
+2025-10-21 18:07:17,823 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 18:07:17,824 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:07:17,830 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:07:17,832 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:07:23,319 - llm_client - INFO - LLM API call successful
+2025-10-21 18:07:23,323 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:07:23,323 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:07:23,326 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:07:23,330 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:07:23,331 - orchestrator - INFO - Executing step 1: news_fetcher
+2025-10-21 18:07:23,338 - orchestrator - INFO - Executing step 2: sentiment_analyzer
+2025-10-21 18:07:23,689 - root - WARNING - Could not load sentiment analysis model: name 'torch' is not defined. Using fallback method.
+2025-10-21 18:07:23,689 - orchestrator - INFO - Executing step 3: data_plotter
+2025-10-21 18:07:23,692 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: sentiment analysis from sentiment_analyzer
+2025-10-21 18:07:24,520 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:07:24,521 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:07:28,409 - llm_client - INFO - LLM API call successful
+2025-10-21 18:07:28,422 - verifier - INFO - Successfully parsed and validated LLM verification (score: 90)
+2025-10-21 18:07:28,428 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:07:28,445 - orchestrator - INFO - Session logged to: logs\session_20251021_180728.json
+2025-10-21 18:09:55,240 - __main__ - INFO - Logging initialized
+2025-10-21 18:09:55,240 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:09:59,014 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:09:59,232 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:09:59,934 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:10:01,181 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:10:03,322 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:10:48,907 - orchestrator - INFO - Starting new session: session_20251021_181048
+2025-10-21 18:10:48,909 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:10:48,910 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:10:58,153 - llm_client - INFO - LLM API call successful
+2025-10-21 18:10:58,158 - planner - INFO - Successfully parsed and validated LLM plan with 1 steps
+2025-10-21 18:10:58,158 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:10:58,158 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:10:58,159 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:11:06,233 - llm_client - INFO - LLM API call successful
+2025-10-21 18:11:06,235 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:11:06,236 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:11:06,237 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:11:06,237 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:11:06,237 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 18:11:06,930 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:11:06,937 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:11:15,941 - llm_client - INFO - LLM API call successful
+2025-10-21 18:11:15,948 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:11:15,991 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:11:16,023 - orchestrator - INFO - Session logged to: logs\session_20251021_181116.json
+2025-10-21 18:15:12,208 - __main__ - INFO - Logging initialized
+2025-10-21 18:15:12,208 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:15:16,062 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:15:16,232 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:15:16,963 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:15:18,239 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:15:20,283 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:15:52,359 - orchestrator - INFO - Starting new session: session_20251021_181552
+2025-10-21 18:15:52,361 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:15:52,362 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:15:55,566 - llm_client - ERROR - LLM API request failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-21 18:15:55,569 - planner - WARNING - LLM plan generation failed (ValueError), using fallback
+2025-10-21 18:15:55,569 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:15:55,571 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:15:58,316 - llm_client - ERROR - LLM API request failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-21 18:15:58,318 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-21 18:15:58,319 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:15:58,319 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:15:58,320 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-21 18:15:59,980 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Summarize_recent_AI_breakthroughs_in_climate_research_and_generate_a_visual_report.
+2025-10-21 18:15:59,985 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-21 18:15:59,986 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-21 18:16:00,851 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:16:00,852 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:16:06,835 - llm_client - INFO - LLM API call successful
+2025-10-21 18:16:06,842 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 18:16:06,843 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:16:06,848 - orchestrator - INFO - Session logged to: logs\session_20251021_181606.json
+2025-10-21 18:21:25,321 - orchestrator - INFO - Starting new session: session_20251021_182125
+2025-10-21 18:21:25,324 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:21:25,325 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:21:36,571 - llm_client - INFO - LLM API call successful
+2025-10-21 18:21:36,574 - planner - INFO - Adding qa_engine as final synthesis step
+2025-10-21 18:21:36,575 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 18:21:36,575 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:21:36,576 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:21:36,577 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:21:48,030 - llm_client - INFO - LLM API call successful
+2025-10-21 18:21:48,036 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:21:48,036 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:21:48,037 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:21:48,037 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:21:48,037 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 18:21:48,652 - orchestrator - INFO - Executing step 2: data_plotter
+2025-10-21 18:21:48,652 - tools.data_plotter - WARNING - Invalid JSON input, using default data. Input was: climate research data
+2025-10-21 18:21:49,041 - orchestrator - INFO - Executing step 3: qa_engine
+2025-10-21 18:22:38,024 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:22:38,026 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:22:46,458 - llm_client - INFO - LLM API call successful
+2025-10-21 18:22:46,463 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:22:46,465 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:22:46,524 - orchestrator - INFO - Session logged to: logs\session_20251021_182246.json
+2025-10-21 18:29:03,718 - __main__ - INFO - Logging initialized
+2025-10-21 18:29:03,718 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:29:06,582 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:29:06,806 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:29:07,590 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:29:08,727 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:29:10,813 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:32:56,096 - __main__ - INFO - Logging initialized
+2025-10-21 18:32:56,104 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:32:59,102 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:32:59,325 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:33:00,194 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:33:01,232 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:33:03,329 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:33:27,693 - orchestrator - INFO - Starting new session: session_20251021_183327
+2025-10-21 18:33:27,693 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:33:27,694 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:33:38,694 - llm_client - INFO - LLM API call successful
+2025-10-21 18:33:38,710 - planner - INFO - Adding qa_engine as final synthesis step
+2025-10-21 18:33:38,711 - planner - INFO - Successfully parsed and validated LLM plan with 4 steps
+2025-10-21 18:33:38,711 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:33:38,711 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:33:38,712 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:33:47,099 - llm_client - INFO - LLM API call successful
+2025-10-21 18:33:47,102 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:33:47,105 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:33:47,106 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:33:47,106 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:33:47,108 - orchestrator - INFO - Executing step 1: news_fetcher
+2025-10-21 18:33:47,109 - orchestrator - INFO - Executing step 2: sentiment_analyzer
+2025-10-21 18:33:48,548 - orchestrator - INFO - Extracted data for plotting: {'News Articles': 1}
+2025-10-21 18:33:48,549 - orchestrator - INFO - Executing step 3: data_plotter
+2025-10-21 18:33:48,904 - orchestrator - INFO - Executing step 4: qa_engine
+2025-10-21 18:34:02,714 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:34:02,715 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:34:11,469 - llm_client - INFO - LLM API call successful
+2025-10-21 18:34:11,473 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:34:11,473 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:34:11,477 - orchestrator - INFO - Session logged to: logs\session_20251021_183411.json
+2025-10-21 18:37:14,023 - orchestrator - INFO - Starting new session: session_20251021_183714
+2025-10-21 18:37:14,025 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:37:14,025 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:37:25,704 - llm_client - INFO - LLM API call successful
+2025-10-21 18:37:25,709 - planner - INFO - Successfully parsed and validated LLM plan with 6 steps
+2025-10-21 18:37:25,713 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:37:25,713 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:37:25,715 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:37:29,618 - llm_client - INFO - LLM API call successful
+2025-10-21 18:37:29,623 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 18:37:29,626 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:37:29,628 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:37:29,629 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:37:29,630 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 18:37:30,460 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-21 18:37:31,965 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/large_language_models_in_medical_diagnosis_accuracy
+2025-10-21 18:37:31,968 - orchestrator - INFO - Executing step 3: news_fetcher
+2025-10-21 18:37:31,968 - orchestrator - INFO - Executing step 4: wikipedia_search
+2025-10-21 18:37:33,344 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/large_language_models_in_medical_diagnosis_ethics
+2025-10-21 18:37:33,349 - orchestrator - INFO - Extracted data for plotting: {'Research Papers Found': 5, 'News Articles': 1}
+2025-10-21 18:37:33,350 - orchestrator - INFO - Executing step 5: data_plotter
+2025-10-21 18:37:34,233 - orchestrator - INFO - Executing step 6: qa_engine
+2025-10-21 18:37:43,233 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:37:43,234 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:37:47,409 - llm_client - INFO - LLM API call successful
+2025-10-21 18:37:47,425 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:37:47,427 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:37:47,440 - orchestrator - INFO - Session logged to: logs\session_20251021_183747.json
+2025-10-21 18:47:50,808 - __main__ - INFO - Logging initialized
+2025-10-21 18:47:50,809 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:47:55,463 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:47:55,668 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:47:56,404 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:47:57,595 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:47:59,678 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:50:00,195 - __main__ - INFO - Logging initialized
+2025-10-21 18:50:00,195 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-21 18:50:02,889 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-21 18:50:03,143 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-21 18:50:04,002 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-21 18:50:05,052 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-21 18:50:07,123 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-21 18:50:30,224 - orchestrator - INFO - Starting new session: session_20251021_185030
+2025-10-21 18:50:30,227 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 18:50:30,229 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:50:48,208 - llm_client - INFO - LLM API call successful
+2025-10-21 18:50:48,214 - planner - INFO - Successfully parsed and validated LLM plan with 5 steps
+2025-10-21 18:50:48,215 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 18:50:48,217 - orchestrator - INFO - Verification iteration 1
+2025-10-21 18:50:48,218 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:50:55,050 - llm_client - INFO - LLM API call successful
+2025-10-21 18:50:55,054 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 18:50:55,056 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:50:55,057 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 18:50:55,058 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 18:50:55,060 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 18:50:55,723 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-21 18:50:57,470 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/medical_diagnosis_and_large_language_models_ethics
+2025-10-21 18:50:57,473 - orchestrator - INFO - Executing step 3: news_fetcher
+2025-10-21 18:50:57,474 - orchestrator - INFO - Extracted data for plotting: {'Research Papers Found': 5, 'News Articles': 1}
+2025-10-21 18:50:57,474 - orchestrator - INFO - Executing step 4: data_plotter
+2025-10-21 18:50:57,762 - orchestrator - INFO - Executing step 5: qa_engine
+2025-10-21 18:51:52,919 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 18:51:52,920 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 18:52:02,030 - llm_client - INFO - LLM API call successful
+2025-10-21 18:52:02,033 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 18:52:02,034 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 18:52:02,046 - orchestrator - INFO - Session logged to: logs\session_20251021_185202.json
+2025-10-21 19:10:57,400 - orchestrator - INFO - Starting new session: session_20251021_191057
+2025-10-21 19:10:57,403 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 19:10:57,404 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:11:06,410 - llm_client - INFO - LLM API call successful
+2025-10-21 19:11:06,420 - planner - INFO - Adding qa_engine as final synthesis step
+2025-10-21 19:11:06,423 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 19:11:06,424 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 19:11:06,425 - orchestrator - INFO - Verification iteration 1
+2025-10-21 19:11:06,426 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:11:10,376 - llm_client - INFO - LLM API call successful
+2025-10-21 19:11:10,382 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 19:11:10,383 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 19:11:10,384 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 19:11:10,384 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 19:11:10,385 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 19:11:10,927 - tools.arxiv_summarizer - WARNING - No entries found in ArXiv response, using fallback
+2025-10-21 19:11:10,932 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-21 19:11:12,038 - orchestrator - INFO - Executing step 3: qa_engine
+2025-10-21 19:11:25,069 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 19:11:25,071 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:11:29,396 - llm_client - INFO - LLM API call successful
+2025-10-21 19:11:29,401 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 19:11:29,401 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 19:11:29,463 - orchestrator - INFO - Session logged to: logs\session_20251021_191129.json
+2025-10-21 19:16:43,162 - orchestrator - INFO - Starting new session: session_20251021_191643
+2025-10-21 19:16:43,162 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 19:16:43,163 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:16:53,134 - llm_client - INFO - LLM API call successful
+2025-10-21 19:16:53,142 - planner - INFO - Adding qa_engine as final synthesis step
+2025-10-21 19:16:53,143 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 19:16:53,144 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 19:16:53,144 - orchestrator - INFO - Verification iteration 1
+2025-10-21 19:16:53,145 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:16:55,419 - llm_client - ERROR - LLM API request failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-21 19:16:55,425 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-21 19:16:55,427 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 19:16:55,427 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 19:16:55,428 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-21 19:16:56,853 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Learning_representations_by_backpropagation_errors
+2025-10-21 19:16:56,945 - orchestrator - INFO - Executing step 2: arxiv_summarizer
+2025-10-21 19:16:57,782 - orchestrator - INFO - Executing step 3: qa_engine
+2025-10-21 19:17:16,209 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 19:17:16,210 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:17:20,806 - llm_client - INFO - LLM API call successful
+2025-10-21 19:17:20,809 - verifier - INFO - Successfully parsed and validated LLM verification (score: 95)
+2025-10-21 19:17:20,810 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 19:17:20,814 - orchestrator - INFO - Session logged to: logs\session_20251021_191720.json
+2025-10-21 19:21:01,178 - orchestrator - INFO - Starting new session: session_20251021_192101
+2025-10-21 19:21:01,180 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-21 19:21:01,180 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:21:07,011 - llm_client - INFO - LLM API call successful
+2025-10-21 19:21:07,021 - planner - INFO - Adding qa_engine as final synthesis step
+2025-10-21 19:21:07,025 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-21 19:21:07,031 - planner - INFO - Successfully created LLM-based plan
+2025-10-21 19:21:07,045 - orchestrator - INFO - Verification iteration 1
+2025-10-21 19:21:07,047 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:21:10,240 - llm_client - INFO - LLM API call successful
+2025-10-21 19:21:10,245 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-21 19:21:10,245 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-21 19:21:10,247 - orchestrator - INFO - Plan approved by verifier
+2025-10-21 19:21:10,247 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-21 19:21:10,255 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-21 19:21:10,913 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-21 19:21:12,443 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/backpropagation_algorithm
+2025-10-21 19:21:12,463 - orchestrator - INFO - Executing step 3: qa_engine
+2025-10-21 19:21:13,851 - tools.qa_engine - ERROR - API error: 429 - {"error":{"message":"Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day","code":429,"metadata":{"headers":{"X-RateLimit-Limit":"50","X-RateLimit-Remaining":"0","X-RateLimit-Reset":"1761091200000"},"provider_name":null}},"user_id":"user_30trJENpZmh7lP2JDMImE0RuPEQ"}
+2025-10-21 19:21:13,854 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-21 19:21:13,855 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-21 19:21:15,299 - llm_client - ERROR - LLM API request failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-21 19:21:15,302 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-21 19:21:15,309 - orchestrator - INFO - Session logged to: logs\session_20251021_192115.json
+2025-10-22 10:04:03,582 - __main__ - INFO - Logging initialized
+2025-10-22 10:04:03,583 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-22 10:04:03,696 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-22 10:04:07,039 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-22 10:04:07,456 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-22 10:04:08,211 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-22 10:04:09,166 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-22 10:04:11,229 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-22 10:07:57,685 - orchestrator - INFO - Starting new session: session_20251022_100757
+2025-10-22 10:07:57,688 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-22 10:07:57,690 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:08:04,132 - llm_client - INFO - LLM API call successful
+2025-10-22 10:08:04,144 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-22 10:08:04,145 - planner - INFO - Successfully created LLM-based plan
+2025-10-22 10:08:04,155 - orchestrator - INFO - Verification iteration 1
+2025-10-22 10:08:04,160 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:08:08,009 - llm_client - INFO - LLM API call successful
+2025-10-22 10:08:08,014 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 10:08:08,018 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 10:08:08,021 - orchestrator - INFO - Plan approved by verifier
+2025-10-22 10:08:08,024 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-22 10:08:08,026 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-22 10:08:09,453 - orchestrator - INFO - Extracted data for plotting: {'Research Papers Found': 5}
+2025-10-22 10:08:09,454 - orchestrator - INFO - Executing step 2: data_plotter
+2025-10-22 10:08:10,294 - orchestrator - INFO - Executing step 3: qa_engine
+2025-10-22 10:08:25,633 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-22 10:08:25,635 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:08:29,687 - llm_client - INFO - LLM API call successful
+2025-10-22 10:08:29,690 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 10:08:29,692 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 10:08:29,701 - orchestrator - INFO - Session logged to: logs\session_20251022_100829.json
+2025-10-22 10:22:31,269 - orchestrator - INFO - Starting new session: session_20251022_102231
+2025-10-22 10:22:31,270 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-22 10:22:31,271 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:22:43,126 - llm_client - INFO - LLM API call successful
+2025-10-22 10:22:43,132 - planner - INFO - Successfully parsed and validated LLM plan with 4 steps
+2025-10-22 10:22:43,132 - planner - INFO - Successfully created LLM-based plan
+2025-10-22 10:22:43,132 - orchestrator - INFO - Verification iteration 1
+2025-10-22 10:22:43,133 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:22:46,118 - llm_client - INFO - LLM API call successful
+2025-10-22 10:22:46,122 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 10:22:46,122 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 10:22:46,123 - orchestrator - INFO - Plan approved by verifier
+2025-10-22 10:22:46,123 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-22 10:22:46,123 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-22 10:22:47,939 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/pollution_caused_by_crackers
+2025-10-22 10:22:47,945 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-22 10:22:47,946 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-22 10:22:49,079 - orchestrator - INFO - Executing step 4: qa_engine
+2025-10-22 10:23:00,318 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-22 10:23:00,319 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:23:05,342 - llm_client - INFO - LLM API call successful
+2025-10-22 10:23:05,346 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 10:23:05,347 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 10:23:05,351 - orchestrator - INFO - Session logged to: logs\session_20251022_102305.json
+2025-10-22 10:27:24,058 - orchestrator - INFO - Starting new session: session_20251022_102724
+2025-10-22 10:27:24,059 - orchestrator - INFO - Phase 1: Generating task plan...
+2025-10-22 10:27:24,060 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:27:27,802 - llm_client - INFO - LLM API call successful
+2025-10-22 10:27:27,808 - planner - INFO - Adding qa_engine as final synthesis step
+2025-10-22 10:27:27,808 - planner - INFO - Successfully parsed and validated LLM plan with 2 steps
+2025-10-22 10:27:27,809 - planner - INFO - Successfully created LLM-based plan
+2025-10-22 10:27:27,810 - orchestrator - INFO - Verification iteration 1
+2025-10-22 10:27:27,826 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:27:31,180 - llm_client - INFO - LLM API call successful
+2025-10-22 10:27:31,187 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 10:27:31,188 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 10:27:31,188 - orchestrator - INFO - Plan approved by verifier
+2025-10-22 10:27:31,204 - orchestrator - INFO - Phase 3: Executing task pipeline...
+2025-10-22 10:27:31,205 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-22 10:27:32,727 - orchestrator - INFO - Executing step 2: qa_engine
+2025-10-22 10:27:43,988 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-22 10:27:43,989 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 10:27:48,193 - llm_client - INFO - LLM API call successful
+2025-10-22 10:27:48,201 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 10:27:48,201 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 10:27:48,221 - orchestrator - INFO - Session logged to: logs\session_20251022_102748.json
+2025-10-22 12:44:30,084 - __main__ - INFO - Logging initialized
+2025-10-22 12:44:30,086 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-22 12:44:31,013 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-10-22 12:44:33,212 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-22 12:44:33,824 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-22 12:44:34,655 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-22 12:44:35,357 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-22 12:44:37,551 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-22 12:45:33,575 - orchestrator - INFO - Starting new session: session_20251022_124533
+2025-10-22 12:45:33,576 - orchestrator - INFO - Phase 1: Generating initial task plan...
+2025-10-22 12:45:33,577 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 12:45:38,652 - llm_client - INFO - LLM API call successful
+2025-10-22 12:45:38,658 - planner - INFO - Successfully parsed and validated LLM plan with 3 steps
+2025-10-22 12:45:38,659 - planner - INFO - Successfully created LLM-based plan
+2025-10-22 12:45:38,659 - orchestrator - INFO - Phase 2: Entering adversarial verification loop...
+2025-10-22 12:45:38,756 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 12:45:42,924 - llm_client - INFO - LLM API call successful
+2025-10-22 12:45:42,927 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 12:45:42,927 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 12:45:42,927 - orchestrator - INFO - Verification score: 100/100, Approved: True
+2025-10-22 12:45:42,955 - orchestrator - INFO - Phase 3: Executing approved task pipeline...
+2025-10-22 12:45:42,955 - orchestrator - INFO - Executing step 1: arxiv_summarizer
+2025-10-22 12:45:44,165 - orchestrator - INFO - Executing step 2: wikipedia_search
+2025-10-22 12:45:45,977 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/Alzheimer%27s_treatments
+2025-10-22 12:45:45,990 - orchestrator - INFO - Executing step 3: qa_engine
+2025-10-22 12:45:57,969 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-22 12:45:57,971 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-22 12:46:01,334 - llm_client - INFO - LLM API call successful
+2025-10-22 12:46:01,336 - verifier - INFO - Successfully parsed and validated LLM verification (score: 100)
+2025-10-22 12:46:01,337 - verifier - INFO - Successfully completed LLM-based verification
+2025-10-22 12:46:01,342 - orchestrator - INFO - Session logged to: logs\session_20251022_124601.json
+2025-10-27 09:59:34,893 - __main__ - INFO - Logging initialized with UTF-8 encoding
+2025-10-27 09:59:34,894 - __main__ - INFO - Starting DualMind Orchestrator...
+2025-10-27 09:59:39,050 - __main__ - INFO - Launching Gradio server on 0.0.0.0:7860
+2025-10-27 09:59:39,381 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-10-27 09:59:40,143 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-10-27 09:59:41,315 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-10-27 09:59:43,433 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2025-10-27 10:33:22,330 - orchestrator - INFO - Starting new session: session_20251027_103322
+2025-10-27 10:33:22,332 - orchestrator - INFO - Phase 1: Generating initial task plan...
+2025-10-27 10:33:22,339 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-27 10:33:25,007 - llm_client - ERROR - LLM API request failed: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-27 10:33:25,009 - planner - WARNING - LLM plan generation failed (ValueError), using fallback
+2025-10-27 10:33:25,009 - orchestrator - INFO - Phase 2: Entering adversarial verification loop...
+2025-10-27 10:33:25,010 - orchestrator - INFO - 🔄 Adversarial iteration 1/2
+2025-10-27 10:33:25,010 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-27 10:33:25,562 - llm_client - ERROR - LLM API request failed: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-27 10:33:25,565 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-27 10:33:25,566 - orchestrator - INFO - Verification score: 85/100, Approved: True
+2025-10-27 10:33:25,566 - orchestrator - INFO - ✅ Plan approved by verifier (score: 85/100)
+2025-10-27 10:33:25,567 - orchestrator - INFO - Phase 3: Executing approved task pipeline...
+2025-10-27 10:33:25,568 - orchestrator - INFO - Executing step 1: wikipedia_search
+2025-10-27 10:33:27,577 - tools.wikipedia_search - ERROR - Error fetching Wikipedia page: 404 Client Error: Not Found for url: https://en.wikipedia.org/api/rest_v1/page/summary/give_code_for_N-Queens_problem.
+2025-10-27 10:33:27,598 - orchestrator - INFO - Executing step 2: news_fetcher
+2025-10-27 10:33:27,599 - orchestrator - INFO - Executing step 3: arxiv_summarizer
+2025-10-27 10:33:38,152 - tools.arxiv_summarizer - ERROR - Error fetching papers from ArXiv: HTTPSConnectionPool(host='export.arxiv.org', port=443): Read timed out. (read timeout=10)
+2025-10-27 10:33:38,157 - orchestrator - INFO - Phase 4: Final verification of results...
+2025-10-27 10:33:38,161 - llm_client - INFO - Making LLM API call to model: meta-llama/llama-3.2-3b-instruct:free
+2025-10-27 10:33:39,192 - llm_client - ERROR - LLM API request failed: 401 Client Error: Unauthorized for url: https://openrouter.ai/api/v1/chat/completions
+2025-10-27 10:33:39,196 - verifier - WARNING - LLM verification failed (ValueError), using rule-based
+2025-10-27 10:33:39,202 - orchestrator - INFO - Session logged to: logs\session_20251027_103339.json
+2025-10-27 10:33:39,214 - orchestrator - INFO - ✅ Stored successful plan pattern: logs\patterns\pattern_20251027_103339.json
