@@ -243,4 +243,4 @@ This project is for educational and demonstration purposes. Please respect API t
 
 ---
 
-**🎯 Ready to explore the future of AI task orchestration? Start with a query and watch the magic happen!**
+
