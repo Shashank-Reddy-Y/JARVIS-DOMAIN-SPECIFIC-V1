@@ -62,8 +62,68 @@ class Planner:
             self.logger.error(f"Invalid JSON in tools file: {self.tools_file}")
             return []
 
+    def _extract_keywords(self, query: str) -> str:
+        """
+        Extract keywords from a long query for tool input.
+        
+        Args:
+            query (str): Full user query
+            
+        Returns:
+            str: Extracted keywords or shortened query
+        """
+        # If query is short enough, return as-is
+        if len(query) < 100:
+            return query
+        
+        # Extract key topic words (simple keyword extraction)
+        query_lower = query.lower()
+        
+        # Look for common patterns with word boundaries
+        import re
+        
+        # Pattern: "Research [topic] applications in/for/on [domain]"
+        match = re.search(r'research\s+(\w+(?:\s+\w+){0,3})\s+applications?\s+(?:in|for|on|of)\s+([^,\.]+)', query_lower)
+        if match:
+            topic = f"{match.group(1)} in {match.group(2)}"
+            return topic.strip()[:100]
+        
+        # Pattern: "about [topic]"
+        if " about " in query_lower:
+            parts = query_lower.split(" about ", 1)
+            if len(parts) > 1:
+                topic = parts[1].split(",")[0].split(".")[0].strip()
+                return topic[:100]
+        
+        # Pattern: "research on [topic]" - use word boundary
+        match = re.search(r'research\s+on\s+([^,\.]+)', query_lower)
+        if match:
+            topic = match.group(1).strip()
+            return topic[:100]
+        
+        # Look for topic after "research"
+        if query_lower.startswith("research"):
+            # Get words after "research" until comma or period
+            match = re.search(r'research\s+(.+?)(?:[,\.]|$)', query_lower)
+            if match:
+                topic = match.group(1).strip()
+                # Remove common filler words from the end
+                topic = re.sub(r'\s+(?:including|with|that|which|for).*$', '', topic)
+                return topic[:100]
+        
+        # Extract first meaningful sentence or phrase before comma
+        first_part = query.split(",")[0].strip()
+        if len(first_part) < 150:
+            return first_part
+        
+        # Return first 100 characters as fallback
+        return query[:100].strip()
+    
     def _create_research_plan(self, query: str) -> Dict[str, Any]:
         """Create a research-focused task plan."""
+        # Extract keywords for tool inputs
+        keywords = self._extract_keywords(query)
+        
         return {
             "query": query,
             "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
@@ -71,17 +131,17 @@ class Planner:
                 {
                     "tool": "wikipedia_search",
                     "purpose": "Get foundational knowledge about the topic",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "news_fetcher",
                     "purpose": "Find recent developments and news",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "arxiv_summarizer",
                     "purpose": "Get academic research and papers",
-                    "input": query
+                    "input": keywords
                 }
             ],
             "final_output": "Comprehensive research summary with sources"
@@ -89,6 +149,8 @@ class Planner:
 
     def _create_summary_plan(self, query: str) -> Dict[str, Any]:
         """Create a summarization task plan."""
+        keywords = self._extract_keywords(query)
+        
         return {
             "query": query,
             "reasoning": "User wants a summary, so I'll gather and condense information.",
@@ -96,12 +158,12 @@ class Planner:
                 {
                     "tool": "wikipedia_search",
                     "purpose": "Get main topic overview",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "qa_engine",
                     "purpose": "Generate intelligent summary",
-                    "input": f"Summarize: {query}"
+                    "input": f"Summarize: {keywords}"
                 }
             ],
             "final_output": "Concise summary of the topic"
@@ -109,6 +171,8 @@ class Planner:
 
     def _create_analysis_plan(self, query: str) -> Dict[str, Any]:
         """Create an analysis task plan."""
+        keywords = self._extract_keywords(query)
+        
         return {
             "query": query,
             "reasoning": "User wants analysis, so I'll gather data and provide insights.",
@@ -116,12 +180,12 @@ class Planner:
                 {
                     "tool": "news_fetcher",
                     "purpose": "Collect relevant data points",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "sentiment_analyzer",
                     "purpose": "Analyze sentiment of collected information",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "data_plotter",
@@ -134,6 +198,8 @@ class Planner:
 
     def _create_report_plan(self, query: str) -> Dict[str, Any]:
         """Create a report generation task plan."""
+        keywords = self._extract_keywords(query)
+        
         return {
             "query": query,
             "reasoning": "User wants a comprehensive report, so I'll gather data and format it professionally.",
@@ -141,17 +207,17 @@ class Planner:
                 {
                     "tool": "wikipedia_search",
                     "purpose": "Research the main topic",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "news_fetcher",
                     "purpose": "Find current developments",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "arxiv_summarizer",
                     "purpose": "Include academic perspectives",
-                    "input": query
+                    "input": keywords
                 },
                 {
                     "tool": "document_writer",
