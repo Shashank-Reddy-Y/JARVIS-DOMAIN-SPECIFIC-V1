@@ -307,7 +307,10 @@ IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately.
         return verification_results
 
     def _run_verification_checks(self, plan: Dict[str, Any]) -> Tuple[List[str], List[str], List[str]]:
-        """Run comprehensive verification checks on the plan."""
+        """
+        Run comprehensive verification checks on the plan.
+        Returns lists of issues, suggestions, and improvements.
+        """
         issues = []
         suggestions = []
         improvements = []
@@ -315,62 +318,88 @@ IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately.
         query = plan.get("query", "")
         pipeline = plan.get("pipeline", [])
 
-        # Check 1: Relevance - Ensure tools match query intent
-        if not self._check_relevance(query, pipeline):
-            issues.append("Some tools may not be directly relevant to the query")
-            suggestions.append("Consider tools more aligned with the specific query intent")
+        # Skip verification if pipeline is empty (handled elsewhere)
+        if not pipeline:
+            return issues, suggestions, improvements
 
-        # Check 2: Redundancy - Avoid duplicate tool usage
-        if self._check_redundancy(pipeline):
-            issues.append("Potential redundant tool usage detected")
-            suggestions.append("Remove or consolidate redundant steps")
+        # Check 1: Relevance - Be more lenient, only flag obvious mismatches
+        if len(pipeline) > 1 and not self._check_relevance(query, pipeline):
+            suggestions.append("Some tools may not be directly relevant to the query")
+            improvements.append("Review tool selection for better alignment with query intent")
 
-        # Check 3: Completeness - Ensure comprehensive coverage
-        if not self._check_completeness(query, pipeline):
-            suggestions.append("Consider additional tools for more comprehensive results")
-            improvements.append("Add complementary tools to enhance output quality")
+        # Check 2: Redundancy - Only flag exact duplicate tools in sequence
+        redundant_tools = self._check_redundancy(pipeline)
+        if redundant_tools:
+            issues.append(f"Redundant tool usage detected: {', '.join(redundant_tools)}")
+            suggestions.append("Remove or consolidate duplicate tools in the pipeline")
 
-        # Check 4: Efficiency - Check pipeline structure
-        if not self._check_efficiency(pipeline):
-            suggestions.append("Reorder pipeline steps for better efficiency")
-            improvements.append("Optimize tool execution sequence")
+        # Check 3: Completeness - Only suggest for very short pipelines
+        if len(pipeline) < 2 and len(query.split()) > 5:  # If query is detailed but pipeline is short
+            suggestions.append("Consider adding more tools for comprehensive coverage")
 
-        # Check 5: Feasibility - Verify all tools are available
-        if not self._check_feasibility(pipeline):
+        # Check 4: Efficiency - Only suggest for pipelines with 3+ tools
+        if len(pipeline) >= 3 and not self._check_efficiency(pipeline):
+            improvements.append("Consider reordering tools for better efficiency")
+
+        # Check 5: Feasibility - Only check if we have tools defined
+        if self.tools and not self._check_feasibility(pipeline):
             issues.append("Some planned tools may not be available")
             suggestions.append("Verify tool availability or use alternatives")
 
         return issues, suggestions, improvements
 
     def _check_relevance(self, query: str, pipeline: List[Dict[str, Any]]) -> bool:
-        """Check if tools are relevant to the query."""
+        """
+        Check if tools are relevant to the query.
+        Returns True by default unless there's a clear mismatch.
+        """
+        if not pipeline:
+            return True
+            
         query_lower = query.lower()
-
-        # Define keyword mappings for tool relevance
+        
+        # Define keyword mappings for tool relevance - expanded and more flexible
         relevance_keywords = {
-            "wikipedia_search": ["information", "overview", "definition", "explain"],
-            "news_fetcher": ["news", "current", "recent", "latest", "update"],
-            "arxiv_summarizer": ["research", "academic", "paper", "study", "scientific"],
-            "sentiment_analyzer": ["sentiment", "opinion", "feeling", "mood", "attitude"],
-            "data_plotter": ["visualize", "chart", "graph", "plot", "data"],
-            "qa_engine": ["question", "answer", "explain", "what", "how", "why"],
-            "document_writer": ["report", "document", "pdf", "write", "generate"]
+            "wikipedia_search": ["information", "overview", "definition", "explain", "what is", "who is", "about"],
+            "news_fetcher": ["news", "current", "recent", "latest", "update", "happening", "trend"],
+            "arxiv_summarizer": ["research", "academic", "paper", "study", "scientific", "publication"],
+            "sentiment_analyzer": ["sentiment", "opinion", "feeling", "mood", "attitude", "reaction"],
+            "data_plotter": ["visualize", "chart", "graph", "plot", "data", "analysis", "analyze"],
+            "qa_engine": ["question", "answer", "explain", "what", "how", "why", "when", "where", "which"],
+            "document_writer": ["report", "document", "pdf", "write", "generate", "create", "summarize"]
         }
-
+        
+        # Common research-related terms that suggest broader tool usage
+        research_terms = ["research", "analyze", "investigate", "study", "explore"]
+        
+        # If it's a research query, be more lenient with tool relevance
+        is_research_query = any(term in query_lower for term in research_terms)
+        
+        irrelevant_tools = 0
+        total_tools = len(pipeline)
+        
         for step in pipeline:
             tool = step.get("tool", "")
             purpose = step.get("purpose", "").lower()
-
+            
+            # If we have a clear purpose, assume relevance
+            if purpose and len(purpose.split()) > 2:  # More than 2 words suggests actual content
+                continue
+                
             # Check if tool is relevant based on keywords or purpose
             tool_relevant = (
                 any(keyword in query_lower for keyword in relevance_keywords.get(tool, [])) or
-                any(keyword in purpose for keyword in relevance_keywords.get(tool, []))
+                any(keyword in purpose for keyword in relevance_keywords.get(tool, [])) or
+                is_research_query  # If it's a research query, be more lenient
             )
-
+            
             if not tool_relevant:
-                return False
-
-        return True
+                irrelevant_tools += 1
+        
+        # Allow up to 1 irrelevant tool in small pipelines, more in larger ones
+        max_irrelevant = max(1, total_tools // 3)
+        
+        return irrelevant_tools <= max_irrelevant
 
     def _check_redundancy(self, pipeline: List[Dict[str, Any]]) -> bool:
         """Check for redundant tool usage."""
