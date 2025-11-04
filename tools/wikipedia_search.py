@@ -48,51 +48,53 @@ class WikipediaSearch:
 
     def search_page(self, topic: str) -> Dict[str, Any]:
         """
-        Search for a Wikipedia page and get its summary.
-
+        Search for a topic on Wikipedia and return a summary.
+        
         Args:
-            topic (str): Topic to search for
-
-        Returns:
-            Dict[str, Any]: Wikipedia page information
-        """
-        try:
-            # Clean and preprocess the topic
-            clean_topic = self._preprocess_query(topic)
+            topic (str): The topic to search for
             
-            # URL encode the topic properly
-            title = self.get_closest_title(clean_topic) or clean_topic
-            encoded_topic = urllib.parse.quote(title.replace(' ', '_'))
-
-            # Try to get the page summary directly
-            url = f"{self.base_url}/{encoded_topic}"
-
-            # Add user agent to avoid 403 errors
-            headers = {
-                'User-Agent': 'DualMind-Orchestrator/1.0 (Research Tool)'
-            }
-
+        Returns:
+            Dict[str, Any]: Dictionary containing page summary and metadata
+        """
+        # Clean and preprocess the query
+        clean_topic = self._preprocess_query(topic)
+        
+        # First, try to get the closest matching title
+        closest_title = self.get_closest_title(clean_topic) or clean_topic
+        
+        # URL encode the topic for the API request
+        encoded_topic = urllib.parse.quote(closest_title.replace(' ', '_'))
+        url = f"{self.base_url}/{encoded_topic}"
+        
+        headers = {
+            'User-Agent': 'DualMind-Orchestrator/1.0 (Research Tool)'
+        }
+        
+        try:
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
-
             data = response.json()
-
+            
+            # Extract relevant information
             return {
-                'title': data.get('title', topic),
+                'title': data.get('title', clean_topic),
                 'extract': data.get('extract', 'No summary available'),
-                'url': f"https://en.wikipedia.org/wiki/{encoded_topic}",
+                'url': data.get('content_urls', {}).get('desktop', {}).get('page', f'https://en.wikipedia.org/wiki/{encoded_topic}'),
+                'thumbnail': data.get('thumbnail', {}).get('source', '') if 'thumbnail' in data else '',
                 'success': True
             }
-
-        except requests.RequestException as e:
-            self.logger.error(f"Error fetching Wikipedia page: {e}")
-            return self._get_fallback_summary(topic)
-        except json.JSONDecoderError as e:
+            
+        except requests.exceptions.HTTPError as e:
+            self.logger.error(f"HTTP error fetching Wikipedia page: {e}")
+            return self._get_fallback_summary(clean_topic)
+            
+        except json.JSONDecodeError as e:
             self.logger.error(f"Error parsing Wikipedia response: {e}")
-            return self._get_fallback_summary(topic)
+            return self._get_fallback_summary(clean_topic)
+            
         except Exception as e:
             self.logger.error(f"Unexpected error in Wikipedia search: {e}")
-            return self._get_fallback_summary(topic)
+            return self._get_fallback_summary(clean_topic)
 
     def _preprocess_query(self, query: str) -> str:
         """Preprocess and clean the query to remove problematic characters."""
