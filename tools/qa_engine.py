@@ -16,7 +16,7 @@ class QAEngine:
         """Initialize the QA engine."""
         self.api_key = os.getenv('OPENROUTER_API_KEY', '')
         self.base_url = "https://openrouter.ai/api/v1"
-        self.model = "meta-llama/llama-3.2-3b-instruct:free"  # Free tier model
+        self.model = os.getenv('OPENROUTER_MODEL', 'openai/gpt-oss-20b:free')  # Use model from env or default to gpt-oss-20b
         self.logger = logging.getLogger(__name__)
 
         # Fallback responses when API is not available
