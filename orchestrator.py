@@ -29,6 +29,9 @@ class Orchestrator:
         self.logs_dir = logs_dir
         self.logger = logging.getLogger(__name__)
 
+        # Tools whose failure should not block the entire pipeline
+        self.non_critical_tools = ["wikipedia_search"]
+
         # Create directories if they don't exist
         for directory in [tools_dir, logs_dir]:
             if not os.path.exists(directory):
@@ -262,7 +265,11 @@ class Orchestrator:
             execution_results = self._execute_pipeline(plan)
             
             # Check if execution was successful
-            failed_tools = [r for r in execution_results if r.get('status') == 'error']
+            # Ignore failures from non-critical tools (e.g. wikipedia_search)
+            failed_tools = [
+                r for r in execution_results
+                if r.get('status') == 'error' and r.get('tool') not in self.non_critical_tools
+            ]
             
             if not failed_tools:
                 # All tools succeeded
