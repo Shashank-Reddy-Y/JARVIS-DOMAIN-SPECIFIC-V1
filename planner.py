@@ -220,12 +220,17 @@ class Planner:
                     "input": keywords
                 },
                 {
+                    "tool": "data_plotter",
+                    "purpose": "Visualize key trends for the topic",
+                    "input": json.dumps({"2015": 10, "2020": 40, "2025": 65})
+                },
+                {
                     "tool": "document_writer",
-                    "purpose": "Generate formatted PDF report",
+                    "purpose": "Generate formatted PDF report with embedded chart references",
                     "input": json.dumps({"sections": [{"title": "Overview", "content": f"Research report on: {query}"}, {"title": "Key Findings", "content": "Detailed analysis and insights from multiple sources."}]})
                 }
             ],
-            "final_output": "Professional PDF report"
+            "final_output": "Professional PDF report with visualizations"
         }
 
     def create_plan(self, user_query: str, orchestrator=None) -> Dict[str, Any]:
@@ -470,7 +475,10 @@ Create an IMPROVED task plan that addresses all the issues and suggestions above
                 self.logger.info("Added wikipedia_search for better relevance")
         
         # Rule 3: If completeness issue, add more data sources
-        if any("complete" in issue.lower() or "comprehensive" in suggestion.lower() for suggestion in suggestions):
+        if (
+            any("complete" in issue.lower() for issue in issues)
+            or any("comprehensive" in suggestion.lower() for suggestion in suggestions)
+        ):
             tools_used = [step.get("tool") for step in pipeline]
             
             # Add arxiv if not present
@@ -793,7 +801,7 @@ IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately.
             plan = self._create_summary_plan(user_query)
         elif any(word in query_lower for word in ['analyze', 'sentiment', 'trend', 'pattern']):
             plan = self._create_analysis_plan(user_query)
-        elif any(word in query_lower for word in ['report', 'document', 'pdf', 'write']):
+        elif any(word in query_lower for word in ['report', 'document', 'pdf', 'write', 'visualize', 'visualization', 'graph', 'chart', 'plot']):
             plan = self._create_report_plan(user_query)
         else:
             # Default to research plan for unknown query types
