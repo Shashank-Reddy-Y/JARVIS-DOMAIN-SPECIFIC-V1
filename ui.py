@@ -35,6 +35,17 @@ class DualMindUI:
             self.logger.error(f"Error initializing orchestrator: {e}")
             self.orchestrator = None
 
+    def parse_pdf_only(self, pdf_file) -> str:
+        """Parse uploaded PDF and return formatted extraction."""
+        if pdf_file is None:
+            return "❌ No PDF uploaded."
+        try:
+            from tools.pdf_parser import pdf_parser_tool
+            return pdf_parser_tool(pdf_file.name)
+        except Exception as e:
+            self.logger.error(f"PDF parsing error: {e}")
+            return f"❌ Error parsing PDF: {str(e)}"
+
     def process_query(self, user_query: str) -> Tuple[str, str, str, str, str]:
         """
         Process a user query and return formatted results.
@@ -299,6 +310,12 @@ class DualMindUI:
                         size="lg"
                     )
 
+            # Optional PDF upload
+            pdf_file = gr.File(label="Upload PDF (optional)", file_types=[".pdf"])
+
+            # Parse PDF Button
+            pdf_btn = gr.Button("📄 Parse PDF Only")
+
             # Results section
             with gr.Tab("🎉 Answer"):
                 gr.HTML("""<div style='text-align: center; padding: 1em; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; margin-bottom: 1em;'>
@@ -362,6 +379,13 @@ class DualMindUI:
                 fn=self.process_query,
                 inputs=[query_input],
                 outputs=[plan_output, verification_output, execution_output, summary_output, final_output]
+            )
+
+            # PDF parsing handler
+            pdf_btn.click(
+                fn=self.parse_pdf_only,
+                inputs=[pdf_file],
+                outputs=[final_output]
             )
 
         return interface
