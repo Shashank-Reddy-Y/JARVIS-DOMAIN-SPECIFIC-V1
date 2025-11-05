@@ -49,6 +49,12 @@
       "output": "path to generated chart image file"
     },
     {
+      "name": "document_writer",
+      "description": "Generates professional PDF reports with formatted text, sections, and images. Can create comprehensive research reports, summaries, and documentation.",
+      "input": "JSON structure with content, sections, and formatting instructions",
+      "output": "path to generated PDF file"
+    },
+    {
       "name": "qa_engine",
       "description": "**PRIMARY TOOL** - Generates comprehensive, detailed answers using OpenRouter LLM API. MUST be used as final step to synthesize information from other tools into a complete answer. Takes questions and context to provide intelligent, well-structured responses.",
       "input": "question text and optional context (can include outputs from previous tools)",
