@@ -118,24 +118,17 @@ class NewsFetcher:
 
     def _get_demo_articles(self, keyword: str, max_results: int) -> List[Dict[str, Any]]:
         """Get demo articles for demonstration purposes."""
-        # Filter demo articles based on keyword relevance
-        filtered_articles = []
-        keyword_lower = keyword.lower()
+        # Always return a consistent format
+        return [{
+            'title': article.get('title', 'No title'),
+            'description': article.get('snippet', 'No description available'),
+            'source': article.get('source', {'name': 'Demo Source'}),
+            'publishedAt': article.get('published_at', datetime.now().isoformat()),
+            'url': article.get('url', ''),
+            'content': article.get('snippet', '')  # Use snippet as content for demo
+        } for article in self.demo_articles[:max_results]]
 
-        for article in self.demo_articles:
-            if (keyword_lower in article['title'].lower() or
-                keyword_lower in article['description'].lower()):
-                filtered_articles.append(article)
-
-        # If no relevant articles found, return all demo articles
-        if not filtered_articles:
-            filtered_articles = self.demo_articles[:max_results]
-        else:
-            filtered_articles = filtered_articles[:max_results]
-
-        return filtered_articles
-
-    def run(self, keyword: str, max_results: int = 5) -> str:
+    def run(self, keyword: str, max_results: int = 5) -> Dict[str, Any]:
         """
         Main method to run the news fetcher tool.
 
@@ -144,26 +137,48 @@ class NewsFetcher:
             max_results (int): Maximum number of results
 
         Returns:
-            str: Formatted news articles
+            Dict[str, Any]: Structured news data
         """
-        articles = self.fetch_news(keyword, max_results)
+        try:
+            articles = self.fetch_news(keyword, max_results)
+            
+            if not articles:
+                return {
+                    'status': 'success',
+                    'data': [],
+                    'message': f'No news articles found for keyword: {keyword}'
+                }
 
-        if not articles:
-            return f"No news articles found for keyword: {keyword}"
+            # Format the response in a consistent structure
+            formatted_articles = []
+            for article in articles:
+                formatted_article = {
+                    'title': article.get('title', 'Untitled'),
+                    'source': article.get('source', {}).get('name', 'Unknown'),
+                    'published_at': article.get('publishedAt', ''),
+                    'description': article.get('description', ''),
+                    'url': article.get('url', ''),
+                    'content': article.get('content', '')
+                }
+                formatted_articles.append(formatted_article)
 
-        result = f"Latest news articles related to '{keyword}':\n\n"
+            return {
+                'status': 'success',
+                'data': formatted_articles,
+                'count': len(formatted_articles),
+                'query': keyword
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error in news fetcher run method: {str(e)}")
+            return {
+                'status': 'error',
+                'message': f'Failed to fetch news: {str(e)}',
+                'data': []
+            }
 
-        for i, article in enumerate(articles, 1):
-            result += f"{i}. **{article.get('title', 'Untitled')}**\n"
-            result += f"   Source: {article.get('source', {}).get('name', 'Unknown')}\n"
-            result += f"   Published: {article.get('publishedAt', 'Unknown')[:10]}\n"
-            result += f"   Description: {article.get('description', 'No description available')}\n"
-            result += f"   URL: {article.get('url', '#')}\n\n"
 
-        return result
-
-
-def news_fetcher_tool(keyword: str, max_results: int = 5) -> str:
+def news_fetcher_tool(keyword: str, max_results: int = 5) -> Dict[str, Any]:
     """
     Standalone function for news fetcher tool.
 
@@ -172,7 +187,7 @@ def news_fetcher_tool(keyword: str, max_results: int = 5) -> str:
         max_results (int): Maximum number of results
 
     Returns:
-        str: Formatted news articles
+        Dict[str, Any]: Structured news data
     """
     fetcher = NewsFetcher()
     return fetcher.run(keyword, max_results)
