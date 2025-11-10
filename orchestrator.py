@@ -81,6 +81,50 @@ class Orchestrator:
 
         return tools
 
+    def _handle_definition_query(self, query: str) -> Dict[str, Any]:
+        """
+        Handle simple definition queries directly.
+        
+        Args:
+            query (str): The definition query (e.g., "what is a Markov chain")
+            
+        Returns:
+            Dict[str, Any]: The definition response
+        """
+        # Extract the term to define
+        query_lower = query.lower()
+        term = None
+        
+        # Handle different query patterns
+        if query_lower.startswith("what is "):
+            term = query[8:].strip('? ')
+        elif query_lower.startswith("what's "):
+            term = query[7:].strip("'? ")
+        elif query_lower.startswith("define "):
+            term = query[7:].strip()
+        elif "definition of " in query_lower:
+            term = query[query_lower.index("definition of ") + 14:].strip()
+        else:
+            term = query.strip('? ')
+        
+        # Get the definition using the define tool
+        if 'define_tool' in self.tools:
+            definition = self.tools['define_tool'](term)
+            
+            if definition.get('success', False):
+                return {
+                    "type": "definition",
+                    "term": definition.get('term', term),
+                    "definition": definition.get('definition', ''),
+                    "source": definition.get('source', 'Wikipedia'),
+                    "url": definition.get('url', ''),
+                    "success": True,
+                    "execution_time": 0.1
+                }
+            
+        # Fallback to general processing if definition tool fails
+        return None
+
     def process_query(self, user_query: str, max_iterations: int = 2) -> Dict[str, Any]:
         """
         Process a user query through the complete DualMind pipeline.
@@ -98,6 +142,15 @@ class Orchestrator:
         self.logger.info(f"Starting new session: {session_id}")
 
         try:
+            # First, check if this is a simple definition query
+            query_type = self._classify_query_type(user_query.lower())
+            if query_type == "definition":
+                definition_result = self._handle_definition_query(user_query)
+                if definition_result:
+                    definition_result["execution_time"] = time.time() - start_time
+                    self._log_session({"query": user_query, "response": definition_result})
+                    return definition_result
+
             # Phase 1: Initial Planning with Learning/Adaptation
             self.logger.info("Phase 1: Generating initial task plan...")
             plan = self.planner.create_plan(user_query, orchestrator=self)
@@ -474,14 +527,22 @@ class Orchestrator:
     
     def _classify_query_type(self, query: str) -> str:
         """Classify query into type categories."""
-        if any(word in query for word in ["what", "explain", "define"]):
-            return "explanation"
-        elif any(word in query for word in ["how", "implement", "create"]):
+        query_lower = query.lower()
+        
+        # Check for definition queries first (most specific)
+        if any(query_lower.startswith(prefix) for prefix in 
+               ["what is ", "what's ", "what are ", "define ", "definition of "]):
+            return "definition"
+            
+        # Other query types
+        if any(word in query_lower for word in ["how to", "how do i", "steps to"]):
             return "how-to"
-        elif any(word in query for word in ["analyze", "sentiment", "trend"]):
+        elif any(word in query_lower for word in ["analyze", "analysis", "sentiment", "trend"]):
             return "analysis"
-        elif any(word in query for word in ["research", "find", "papers"]):
+        elif any(word in query_lower for word in ["research", "find", "papers", "studies on"]):
             return "research"
+        elif any(word in query_lower for word in ["explain", "what does", "meaning of"]):
+            return "explanation"
         else:
             return "general"
     
