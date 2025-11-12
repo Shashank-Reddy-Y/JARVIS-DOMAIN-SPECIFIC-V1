@@ -228,7 +228,7 @@ class PubMedTool:
             return f"Error searching PubMed for '{query}': {str(e)}"
 
 
-def pubmed_tool(query: str) -> str:
+def pubmed_search_tool(query: str) -> str:
     """
     Standalone function for PubMed tool.
     

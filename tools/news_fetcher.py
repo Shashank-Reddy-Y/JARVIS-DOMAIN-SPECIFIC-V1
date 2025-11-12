@@ -119,14 +119,22 @@ class NewsFetcher:
     def _get_demo_articles(self, keyword: str, max_results: int) -> List[Dict[str, Any]]:
         """Get demo articles for demonstration purposes."""
         # Always return a consistent format
-        return [{
-            'title': article.get('title', 'No title'),
-            'description': article.get('snippet', 'No description available'),
-            'source': article.get('source', {'name': 'Demo Source'}),
-            'publishedAt': article.get('published_at', datetime.now().isoformat()),
-            'url': article.get('url', ''),
-            'content': article.get('snippet', '')  # Use snippet as content for demo
-        } for article in self.demo_articles[:max_results]]
+        result = []
+        for article in self.demo_articles[:max_results]:
+            # Ensure article is a dictionary
+            if not isinstance(article, dict):
+                self.logger.warning(f"Invalid article format: {article}, skipping")
+                continue
+                
+            result.append({
+                'title': article.get('title', 'No title'),
+                'description': article.get('snippet', 'No description available'),
+                'source': article.get('source', {'name': 'Demo Source'}) if isinstance(article.get('source'), dict) else {'name': 'Demo Source'},
+                'publishedAt': article.get('published_at', datetime.now().isoformat()),
+                'url': article.get('url', ''),
+                'content': article.get('snippet', '')  # Use snippet as content for demo
+            })
+        return result
 
     def run(self, keyword: str, max_results: int = 5) -> Dict[str, Any]:
         """

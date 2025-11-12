@@ -35,17 +35,6 @@ class DualMindUI:
             self.logger.error(f"Error initializing orchestrator: {e}")
             self.orchestrator = None
 
-    def parse_pdf_only(self, pdf_file) -> str:
-        """Parse uploaded PDF and return formatted extraction."""
-        if pdf_file is None:
-            return "❌ No PDF uploaded."
-        try:
-            from tools.pdf_parser import pdf_parser_tool
-            return pdf_parser_tool(pdf_file.name)
-        except Exception as e:
-            self.logger.error(f"PDF parsing error: {e}")
-            return f"❌ Error parsing PDF: {str(e)}"
-
     def process_query(self, user_query: str) -> Tuple[str, str, str, str, str]:
         """
         Process a user query and return formatted results.
@@ -158,7 +147,14 @@ class DualMindUI:
         for result in execution_results:
             if result.get('status') == 'success':
                 tool_name = result.get('tool', 'Unknown')
-                output = result.get('output', '')
+                raw_output = result.get('output', '')
+                try:
+                    if isinstance(raw_output, (dict, list)):
+                        output = json.dumps(raw_output, ensure_ascii=False)
+                    else:
+                        output = str(raw_output) if raw_output is not None else ""
+                except Exception:
+                    output = ""
                 
                 if output and output.strip() and not output.startswith('Error:'):
                     if tool_name == 'wikipedia_search':
@@ -274,6 +270,21 @@ class DualMindUI:
                 color: #1e293b;
                 font-weight: 700;
             }
+            .final-output table {
+                color: #1e293b;
+                border-collapse: collapse;
+                margin: 1em 0;
+            }
+            .final-output th, .final-output td {
+                color: #1e293b;
+                border: 1px solid #cbd5e1;
+                padding: 8px;
+                text-align: left;
+            }
+            .final-output th {
+                background-color: #f1f5f9;
+                font-weight: 600;
+            }
             .markdown-text {
                 color: #1e293b;
             }
@@ -309,12 +320,6 @@ class DualMindUI:
                         variant="primary",
                         size="lg"
                     )
-
-            # Optional PDF upload
-            pdf_file = gr.File(label="Upload PDF (optional)", file_types=[".pdf"])
-
-            # Parse PDF Button
-            pdf_btn = gr.Button("📄 Parse PDF Only")
 
             # Results section
             with gr.Tab("🎉 Answer"):
@@ -379,13 +384,6 @@ class DualMindUI:
                 fn=self.process_query,
                 inputs=[query_input],
                 outputs=[plan_output, verification_output, execution_output, summary_output, final_output]
-            )
-
-            # PDF parsing handler
-            pdf_btn.click(
-                fn=self.parse_pdf_only,
-                inputs=[pdf_file],
-                outputs=[final_output]
             )
 
         return interface

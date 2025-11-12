@@ -4,6 +4,7 @@ Combines outputs from multiple tools into a coherent, human-readable answer.
 """
 
 import logging
+import json
 from typing import Dict, Any, List
 
 logger = logging.getLogger(__name__)
@@ -22,12 +23,24 @@ def synthesize_answer(user_query: str, execution_results: List[Dict[str, Any]], 
         Synthesized answer as a formatted string
     """
     
+    # Helper to normalize any tool output to a string
+    def _to_text(val: Any) -> str:
+        if isinstance(val, str):
+            return val
+        try:
+            if isinstance(val, (dict, list)):
+                return json.dumps(val, ensure_ascii=False)
+            return str(val)
+        except Exception:
+            return ""
+
     # Collect all successful outputs
     outputs = {}
     for result in execution_results:
         if result.get('status') == 'success':
             tool_name = result.get('tool', 'unknown')
-            output = result.get('output', '')
+            raw_output = result.get('output', '')
+            output = _to_text(raw_output)
             if output and not output.startswith('Error:'):
                 outputs[tool_name] = output
     
@@ -84,7 +97,7 @@ def synthesize_answer(user_query: str, execution_results: List[Dict[str, Any]], 
             # Track generated files
             files_generated = []
             for result in execution_results:
-                output = result.get('output', '')
+                output = _to_text(result.get('output', ''))
                 if 'successfully created' in output.lower() or 'generated' in output.lower():
                     if '.png' in output or 'Chart' in output:
                         files_generated.append(('chart', output))
@@ -152,7 +165,7 @@ def synthesize_answer(user_query: str, execution_results: List[Dict[str, Any]], 
     # Track generated files
     files_generated = []
     for result in execution_results:
-        output = result.get('output', '')
+        output = _to_text(result.get('output', ''))
         if 'successfully created' in output.lower() or 'generated' in output.lower():
             if '.png' in output or 'Chart' in output:
                 files_generated.append(('chart', output))

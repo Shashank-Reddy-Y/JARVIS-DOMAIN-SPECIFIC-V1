@@ -1,8 +1,11 @@
 fastapi
-uvicorn
+uvicorn[standard]
 requests
 streamlit
 transformers
 wikipedia
 duckduckgo-search
 python-dotenv
+python-multipart
+PyPDF2
+pdfplumber

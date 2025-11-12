@@ -8,6 +8,7 @@ import os
 import sys
 import logging
 import argparse
+import socket
 from pathlib import Path
 
 # Add the current directory to Python path for imports
@@ -196,12 +197,45 @@ Examples:
         # Create the interface
         interface = create_ui()
 
+        # Resolve server settings with environment overrides
+        env_port = os.getenv('GRADIO_SERVER_PORT')
+        env_share = os.getenv('GRADIO_SHARE')
+        try:
+            port = int(env_port) if env_port else int(args.port)
+        except Exception:
+            port = int(args.port)
+
+        share_flag = args.share
+        if isinstance(env_share, str):
+            share_flag = env_share.lower() in ("1", "true", "yes")
+
+        # Helper: check if a port is free
+        def _is_port_free(host: str, p: int) -> bool:
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                    s.bind((host, p))
+                return True
+            except OSError:
+                return False
+
+        # If desired port is busy, search for a free one in a small range
+        chosen_port = port
+        if not _is_port_free(args.host, chosen_port):
+            for candidate in range(port, port + 50):
+                if _is_port_free(args.host, candidate):
+                    chosen_port = candidate
+                    break
+
+        if chosen_port != port:
+            logger.warning(f"Port {port} is busy. Using available port {chosen_port} instead.")
+
         # Launch the server
-        logger.info(f"Launching Gradio server on {args.host}:{args.port}")
+        logger.info(f"Launching Gradio server on {args.host}:{chosen_port}")
         interface.launch(
             server_name=args.host,
-            server_port=args.port,
-            share=args.share,
+            server_port=chosen_port,
+            share=share_flag,
             show_api=False
         )
 

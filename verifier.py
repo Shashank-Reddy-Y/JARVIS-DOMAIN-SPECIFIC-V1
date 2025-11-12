@@ -152,49 +152,53 @@ IMPORTANT: Your ENTIRE response must be valid JSON. Start typing {{ immediately.
 
         if llm_response:
             try:
-                # Use robust JSON parser with automatic fixing
+                # Use robust JSON parser with automatic fixing when available
                 if parse_llm_json:
-                    # Use the advanced JSON fixer
                     expected_keys = ["overall_approval", "score", "issues", "suggestions", "improvements"]
                     verification_data = parse_llm_json(llm_response, expected_keys)
-                    
-                    # Additional validation
+
                     if validate_verification_json and not validate_verification_json(verification_data):
-                        self.logger.warning("LLM verification failed validation, adding defaults...")
-                        # Ensure all required fields exist
+                        self.logger.warning("LLM verification failed validation, normalising defaults")
                         verification_data.setdefault("overall_approval", False)
                         verification_data.setdefault("score", 50)
                         verification_data.setdefault("issues", [])
                         verification_data.setdefault("suggestions", [])
                         verification_data.setdefault("improvements", [])
                 else:
-                    # Fallback to old method if json_fixer not available
                     clean_response = self._extract_json_from_response(llm_response)
                     verification_data = json.loads(clean_response)
-                    # Ensure all required fields exist with defaults
-                    verification_data.setdefault("overall_approval", False)
-                    verification_data.setdefault("score", 50)
-                    verification_data.setdefault("issues", [])
-                    verification_data.setdefault("suggestions", [])
-                    verification_data.setdefault("improvements", [])
-                
-                # Ensure reasoning field
-                verification_data.setdefault("reasoning", "LLM-generated verification")
-                
-                # Add metadata
-                verification_data.update({
-                    "plan_id": f"plan_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-                    "verified_at": datetime.now().isoformat(),
-                    "verification_method": "llm",
-                    "tools_available": len(self.tools)
-                })
-                
-                self.logger.info(f"Successfully parsed and validated LLM verification (score: {verification_data.get('score', 0)})")
-                return verification_data
-                
-            except (json.JSONDecodeError, ValueError) as e:
-                self.logger.debug(f"Failed to parse LLM verification JSON: {e}")
-                raise  # Re-raise to be caught by verify_plan
+            except ValueError as exc:
+                self.logger.warning(
+                    "LLM verification response missing expected keys (%s); applying permissive fallback",
+                    exc,
+                )
+                clean_response = self._extract_json_from_response(llm_response)
+                verification_data = json.loads(clean_response)
+            except json.JSONDecodeError as exc:
+                self.logger.debug(f"Failed to parse LLM verification JSON: {exc}")
+                raise
+
+            # Ensure all required fields exist with sensible defaults
+            verification_data.setdefault("overall_approval", False)
+            verification_data.setdefault("score", 50)
+            verification_data.setdefault("issues", [])
+            verification_data.setdefault("suggestions", [])
+            verification_data.setdefault("improvements", [])
+            verification_data.setdefault("reasoning", "LLM-generated verification")
+
+            # Add metadata before returning
+            verification_data.update({
+                "plan_id": f"plan_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                "verified_at": datetime.now().isoformat(),
+                "verification_method": "llm",
+                "tools_available": len(self.tools)
+            })
+
+            self.logger.info(
+                "Successfully parsed LLM verification (score: %s)",
+                verification_data.get("score", 0),
+            )
+            return verification_data
         else:
             self.logger.debug("LLM returned None, falling back")
             raise ValueError("LLM returned no response")

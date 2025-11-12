@@ -52,13 +52,30 @@ class LLMClient:
 
         self.api_key = os.getenv('OPENROUTER_API_KEY')
         self.base_url = "https://openrouter.ai/api/v1"
-        self.model = os.getenv('OPENROUTER_MODEL', 'openai/gpt-oss-20b:free')
+        
+        # Try multiple models in order of preference
+        self.models = [
+            os.getenv('OPENROUTER_MODEL', 'microsoft/wizardlm-2-8x22b'),
+            'microsoft/wizardlm-2-8x22b',
+            'anthropic/claude-3-haiku',
+            'openai/gpt-3.5-turbo',
+            'meta-llama/llama-3-8b-instruct',
+        ]
+        self.model = self.models[0]  # Start with preferred model
+        
         self.logger = logging.getLogger(__name__)
         self.rate_limiter = RateLimiter(calls_per_minute=5)
 
         if not self.api_key:
             self.logger.warning("OpenRouter API key not found. LLM features will use fallback mode.")
             self.api_key = None
+
+    def _try_next_model(self):
+        """Try the next available model when current one fails."""
+        current_index = self.models.index(self.model) if self.model in self.models else -1
+        next_index = (current_index + 1) % len(self.models)
+        self.model = self.models[next_index]
+        self.logger.warning(f"Switching to model: {self.model}")
 
     def _rate_limit(self):
         """Simple rate limiting to prevent hitting API limits."""
@@ -222,6 +239,13 @@ class LLMClient:
                     retry_after = int(e.response.headers.get('retry-after', min(30, 5 * (retry_count + 1))))
                     self.logger.warning(f"Rate limited. Waiting {retry_after} seconds...")
                     time.sleep(retry_after)
+                    continue
+                elif status_code == 404:  # Model not found, try next model
+                    self.logger.warning(f"Model {self.model} not found (404). Trying next model...")
+                    self._try_next_model()
+                    # Reset retry count for new model
+                    retry_count = 0
+                    delay = retry_delay
                     continue
                 elif status_code and status_code >= 500:
                     self.logger.error(f"Server error ({status_code}): {e}")
