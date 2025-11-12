@@ -178,7 +178,7 @@ class LLMClient:
                     'Authorization': f'Bearer {self.api_key.strip()}',
                     'X-API-Key': self.api_key.strip(),
                     'Content-Type': 'application/json',
-                    'HTTP-Referer': 'https://github.com/Shashank-Reddy-Y/JARVIS-DOMAIN-SPECIFIC-V1',
+                    'HTTP-Referer': 'https://github.com/your-repo',
                     'X-Title': 'DualMind Orchestrator',
                     'Accept': 'application/json'
                 }
