@@ -1,0 +1,31 @@
+{
+  "session_id": "session_20251112_210458",
+  "user_query": "hello",
+  "classification": {
+    "route": "direct_llm",
+    "confidence": 0.7,
+    "rationale": "Simple heuristic routing.",
+    "heuristics_triggered": {
+      "length": 1,
+      "contains_tool_hints": false,
+      "has_multiple_sentences": false,
+      "mentions_files": false,
+      "requires_verification": false,
+      "question_word_start": false
+    },
+    "llm_backstop_used": false
+  },
+  "plan": null,
+  "plan_history": [],
+  "verification": null,
+  "execution_results": [],
+  "final_response": "Hey there! How can I help you today?",
+  "status": "completed_direct_llm",
+  "response_metadata": {
+    "response_origin": "llm_fallback",
+    "factual_confidence": "low",
+    "tools_used": [],
+    "disclaimer": "\u26a0\ufe0f This response may include LLM-generated content. Verify for factual accuracy."
+  },
+  "execution_time": 9.91788125038147
+}

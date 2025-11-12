@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-11-12T14:01:09.882990",
+  "query": "Tell me the history of mughal empire in india",
+  "query_features": {
+    "length": 9,
+    "has_question": false,
+    "type": "general",
+    "keywords": []
+  },
+  "plan": {
+    "pipeline": [
+      {
+        "tool": "wikipedia_search",
+        "purpose": "Get foundational knowledge about the topic",
+        "input": "Tell me the history of mughal empire in india"
+      },
+      {
+        "tool": "news_fetcher",
+        "purpose": "Find recent developments and news",
+        "input": "Tell me the history of mughal empire in india"
+      },
+      {
+        "tool": "arxiv_summarizer",
+        "purpose": "Get academic research and papers",
+        "input": "Tell me the history of mughal empire in india"
+      }
+    ],
+    "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
+    "tools_used": [
+      "wikipedia_search",
+      "news_fetcher",
+      "arxiv_summarizer"
+    ]
+  },
+  "score": 100,
+  "success": true
+}

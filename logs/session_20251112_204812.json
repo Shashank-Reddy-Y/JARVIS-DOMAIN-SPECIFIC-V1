@@ -1,0 +1,31 @@
+{
+  "session_id": "session_20251112_204807",
+  "user_query": "who is albert einstein",
+  "classification": {
+    "route": "direct_llm",
+    "confidence": 0.85,
+    "rationale": "Simple heuristic routing.",
+    "heuristics_triggered": {
+      "length": 4,
+      "contains_tool_hints": false,
+      "has_multiple_sentences": false,
+      "mentions_files": false,
+      "requires_verification": false,
+      "question_word_start": true
+    },
+    "llm_backstop_used": false
+  },
+  "plan": null,
+  "plan_history": [],
+  "verification": null,
+  "execution_results": [],
+  "final_response": "Albert\u202fEinstein (1879\u202f\u2013\u202f1955) was a German\u2011born theoretical physicist best known for developing the theory of relativity, particularly the equation \\(E=mc^2\\). He received the 1921 Nobel Prize in Physics for his explanation of the photoelectric effect and made foundational contributions to quantum theory, statistical mechanics, and cosmology. His work fundamentally changed our understanding of space, time, and gravity.",
+  "status": "completed_direct_llm",
+  "response_metadata": {
+    "response_origin": "llm_fallback",
+    "factual_confidence": "low",
+    "tools_used": [],
+    "disclaimer": "\u26a0\ufe0f This response may include LLM-generated content. Verify for factual accuracy."
+  },
+  "execution_time": 4.379914283752441
+}

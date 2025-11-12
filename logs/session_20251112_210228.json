@@ -1,0 +1,31 @@
+{
+  "session_id": "session_20251112_210207",
+  "user_query": "summarize everything about blockchain technology",
+  "classification": {
+    "route": "direct_llm",
+    "confidence": 0.7,
+    "rationale": "Simple heuristic routing.",
+    "heuristics_triggered": {
+      "length": 5,
+      "contains_tool_hints": false,
+      "has_multiple_sentences": false,
+      "mentions_files": false,
+      "requires_verification": false,
+      "question_word_start": false
+    },
+    "llm_backstop_used": false
+  },
+  "plan": null,
+  "plan_history": [],
+  "verification": null,
+  "execution_results": [],
+  "final_response": "Love the ambition. I\u2019ll give you \u201ceverything\u201d in a tight, practical package. If you want to go deeper on any part, we can zoom in.\n\n1. Core idea (what is a blockchain?)\n- A blockchain is:\n  - A shared database (ledger)\n  - Stored across many computers (nodes)\n  - Updated in batches (blocks)\n  - Linked so old records can\u2019t be secretly changed (each block references the previous one via cryptographic hash)\n- Key properties:\n  - Hard to tamper with history\n  - Everyone can verify the data\n  - No single party has full control (in public chains)\n\n2. How it works (simplified)\n- Transactions: \u201cAlice sends Bob 1 coin.\u201d\n- Validation: Nodes check rules:\n  - Is the signature valid?\n  - Does Alice have enough balance?\n- Block creation:\n  - Transactions are bundled into a block.\n  - The block includes:\n    - A list of transactions\n    - A reference (hash) to the previous block\n    - Some form of proof (depends on consensus mechanism)\n- Chain:\n  - Blocks are added in order, forming a chronological chain.\n  - Changing one block would break all links after it, which is what gives security.\n\n3. Consensus mechanisms (how everyone agrees)\n- Proof of Work (PoW):\n  - Used by: Bitcoin.\n  - Miners do heavy computation (hash puzzles).\n  - Pros: Very secure, battle-tested.\n  - Cons: Energy intensive, slower, fewer transactions per second.\n- Proof of Stake (PoS):\n  - Used by: Ethereum (now), many newer chains.\n  - Validators lock up coins; misbehavior can cost them (\u201cslashing\u201d).\n  - Pros: More energy-efficient, scalable.\n  - Cons: More complex, centralization risks (rich get more influence).\n- Others (just know they exist):\n  - Delegated PoS, Proof of Authority, BFT-style, etc. Trade-offs of speed, trust, and decentralization.\n\n4. Public vs private vs consortium chains\n- Public (permissionless):\n  - Anyone can join, read, write (subject to rules).\n  - Examples: Bitcoin, Ethereum.\n  - Good for: open systems, censorship resistance, public verifiability.\n- Private:\n  - Controlled by one organization.\n  - Good for: internal record-keeping, compliance, but less \u201cdecentralized.\u201d\n- Consortium:\n  - Controlled by a group (banks, companies).\n  - Good for: shared infrastructure without a single owner.\n\n5. Smart contracts\n- What:\n  - Code on the blockchain that runs automatically when conditions are met.\n  - \u201cIf X happens, do Y.\u201d\n- Why it\u2019s a big deal:\n  - Lets you build apps (DeFi, NFTs, games, etc.) where rules are transparent and execution is guaranteed by the network.\n",
+  "status": "completed_direct_llm",
+  "response_metadata": {
+    "response_origin": "llm_fallback",
+    "factual_confidence": "low",
+    "tools_used": [],
+    "disclaimer": "\u26a0\ufe0f This response may include LLM-generated content. Verify for factual accuracy."
+  },
+  "execution_time": 20.39224123954773
+}

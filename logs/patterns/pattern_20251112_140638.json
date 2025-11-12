@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-11-12T14:06:38.281174",
+  "query": "Tell me the history of mughal empire in india",
+  "query_features": {
+    "length": 9,
+    "has_question": false,
+    "type": "general",
+    "keywords": []
+  },
+  "plan": {
+    "pipeline": [
+      {
+        "tool": "wikipedia_search",
+        "purpose": "Retrieve summary of Mughal Empire",
+        "input": "Mughal Empire"
+      },
+      {
+        "tool": "qa_engine",
+        "purpose": "Generate detailed answer using Wikipedia summary",
+        "input": "Tell me the history of Mughal Empire in India"
+      }
+    ],
+    "reasoning": "Use Wikipedia to gather concise historical overview, then synthesize with QA engine.",
+    "tools_used": [
+      "wikipedia_search",
+      "qa_engine"
+    ]
+  },
+  "score": 80,
+  "success": true
+}

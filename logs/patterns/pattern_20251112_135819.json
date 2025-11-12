@@ -1,0 +1,40 @@
+{
+  "timestamp": "2025-11-12T13:58:19.881505",
+  "query": "summarize recent research on ransomware",
+  "query_features": {
+    "length": 5,
+    "has_question": false,
+    "type": "research",
+    "keywords": [
+      "science",
+      "news"
+    ]
+  },
+  "plan": {
+    "pipeline": [
+      {
+        "tool": "wikipedia_search",
+        "purpose": "Get foundational knowledge about the topic",
+        "input": "summarize recent research on ransomware"
+      },
+      {
+        "tool": "news_fetcher",
+        "purpose": "Find recent developments and news",
+        "input": "summarize recent research on ransomware"
+      },
+      {
+        "tool": "arxiv_summarizer",
+        "purpose": "Get academic research and papers",
+        "input": "summarize recent research on ransomware"
+      }
+    ],
+    "reasoning": "User wants to research a topic, so I'll gather information from multiple sources.",
+    "tools_used": [
+      "wikipedia_search",
+      "news_fetcher",
+      "arxiv_summarizer"
+    ]
+  },
+  "score": 100,
+  "success": true
+}

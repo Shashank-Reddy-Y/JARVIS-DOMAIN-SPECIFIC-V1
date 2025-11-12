@@ -1,0 +1,31 @@
+{
+  "session_id": "session_20251112_210135",
+  "user_query": "tell everything about blockchain technology",
+  "classification": {
+    "route": "direct_llm",
+    "confidence": 0.7,
+    "rationale": "Simple heuristic routing.",
+    "heuristics_triggered": {
+      "length": 5,
+      "contains_tool_hints": false,
+      "has_multiple_sentences": false,
+      "mentions_files": false,
+      "requires_verification": false,
+      "question_word_start": false
+    },
+    "llm_backstop_used": false
+  },
+  "plan": null,
+  "plan_history": [],
+  "verification": null,
+  "execution_results": [],
+  "final_response": "Love the ambition. \u201cEverything\u201d about blockchain is\u2026 a lot, so I\u2019ll give you a clear, big-picture map without drowning you. If you want to go deeper on any part, say so and I\u2019ll zoom in.\n\n1. Core idea (what is a blockchain?)\n- A blockchain is:\n  - A shared database (ledger) spread across many computers (nodes).\n  - Data grouped into \u201cblocks\u201d that are linked (chained) together in order.\n  - Designed so that once data is recorded, it\u2019s extremely hard to change.\n- Key properties:\n  - Decentralized: no single owner (in public chains).\n  - Transparent: anyone (on public chains) can see the history.\n  - Tamper-resistant: changing history is very costly or practically impossible.\n  - Verifiable: participants can independently verify data.\n\n2. How it works (simple version)\n- Transactions: People submit actions (e.g., \u201cAlice sends Bob 1 coin\u201d).\n- Validation:\n  - Nodes check: \u201cIs this valid? Does Alice have the funds? Is the signature correct?\u201d\n- Block creation:\n  - Valid transactions are bundled into a block.\n  - A consensus mechanism determines which block becomes the \u201cnext\u201d one.\n- Chaining:\n  - Each block includes:\n    - A list of transactions.\n    - A reference (hash) of the previous block.\n  - This creates a chain: change one block \u2192 its hash changes \u2192 breaks all following blocks \u2192 everyone notices.\n- Replication:\n  - Every node keeps a copy of the chain.\n  - Security comes from many independent copies + consensus rules.\n\n3. Key building blocks (tech components)\n- Cryptographic hash:\n  - A function that turns data into a fixed-size \u201cfingerprint.\u201d\n  - Tiny change in input \u2192 completely different output.\n- Digital signatures:\n  - Each user has:\n    - Private key: secret.\n    - Public key: shared.\n  - You sign transactions with your private key \u2192 others verify with your public key.\n- Merkle trees:\n  - A tree of hashes that lets you verify a transaction is in a block quickly without storing everything.\n- Networking (P2P):\n  - Nodes talk directly to each other, share blocks/transactions, and stay in sync.\n\n4. Consensus mechanisms (how nodes agree on the truth)\n- Proof of Work (PoW) \u2013 used by: Bitcoin\n  - Miners compete to solve a math puzzle.\n  - Winner adds the next block, earns block reward + fees.\n  - Pros: very secure, battle-tested.\n  - Cons: energy-intensive, slower, fewer transactions per second.\n- Proof of Stake (PoS) \u2013 used by: Ethereum (now), many newer chains\n  - Validators \u201clock up\u201d coins as stake.\n  - They\u2019re chosen (randomly/weighted) to propose/validate blocks.\n  - Mis",
+  "status": "completed_direct_llm",
+  "response_metadata": {
+    "response_origin": "llm_fallback",
+    "factual_confidence": "low",
+    "tools_used": [],
+    "disclaimer": "\u26a0\ufe0f This response may include LLM-generated content. Verify for factual accuracy."
+  },
+  "execution_time": 18.0793240070343
+}

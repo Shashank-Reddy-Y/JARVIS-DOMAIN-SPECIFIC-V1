@@ -128,6 +128,13 @@ class DualMindUI:
         plan = results.get('plan', {})
         user_query = plan.get('query', results.get('user_query', 'your query'))
 
+        final_override = results.get('final_response')
+        if final_override:
+            disclaimer = results.get('response_metadata', {}).get('disclaimer')
+            if disclaimer:
+                return f"{final_override}\n\n_{disclaimer}_"
+            return final_override
+
         if not execution_results:
             return "❌ No results were generated. Please try again."
 

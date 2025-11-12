@@ -1,0 +1,193 @@
+{
+  "session_id": "session_20251112_204904",
+  "user_query": "summarize recent research on diffusion models",
+  "classification": {
+    "route": "agent_pipeline",
+    "confidence": 0.5,
+    "rationale": "Heuristics were inconclusive and no LLM backstop was available.",
+    "heuristics_triggered": {
+      "length": 6,
+      "contains_tool_hints": true,
+      "has_multiple_sentences": false,
+      "mentions_files": false,
+      "requires_verification": false,
+      "question_word_start": false
+    },
+    "llm_backstop_used": false
+  },
+  "plan": {
+    "error": "Failed to get valid response from LLM",
+    "details": "402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions",
+    "plan_schema_version": "2.0",
+    "query": "summarize recent research on diffusion models",
+    "analysis_summary": "No analysis provided.",
+    "clarifications_needed": [],
+    "tool_selection_rationale": [
+      {
+        "tool": "qa_engine",
+        "justification": "Needed to accomplish S1.",
+        "confidence": "medium"
+      }
+    ],
+    "pipeline": [
+      {
+        "step_id": "S1",
+        "tool": "qa_engine",
+        "purpose": "Respond directly to the user query.",
+        "input": "summarize recent research on diffusion models",
+        "expected_output": "A direct answer to the user's question.",
+        "dependencies": [],
+        "fallback_tools": [],
+        "max_retries": 2
+      }
+    ],
+    "final_output_plan": "qa_engine will synthesize the final response.",
+    "metadata": {
+      "estimated_duration": "medium",
+      "plan_confidence": "medium"
+    },
+    "revision_number": 1,
+    "previous_score": 0,
+    "addressed_issues": 0,
+    "notes": [
+      "Generated via LLM replanning with verifier feedback"
+    ],
+    "created_at": "2025-11-12T20:50:23.967378",
+    "planner_version": "2.0.0-llm",
+    "available_tools": 11,
+    "estimated_steps": 1,
+    "llm_generated": true
+  },
+  "plan_history": [
+    {
+      "iteration": 1,
+      "plan": {
+        "error": "Failed to get valid response from LLM",
+        "details": "402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions",
+        "plan_schema_version": "2.0",
+        "query": "summarize recent research on diffusion models",
+        "analysis_summary": "No analysis provided.",
+        "clarifications_needed": [],
+        "tool_selection_rationale": [
+          {
+            "tool": "qa_engine",
+            "justification": "Needed to accomplish S1.",
+            "confidence": "medium"
+          }
+        ],
+        "pipeline": [
+          {
+            "step_id": "S1",
+            "tool": "qa_engine",
+            "purpose": "Respond directly to the user query.",
+            "input": "summarize recent research on diffusion models",
+            "expected_output": "A direct answer to the user's question.",
+            "dependencies": [],
+            "fallback_tools": [],
+            "max_retries": 2
+          }
+        ],
+        "final_output_plan": "qa_engine will synthesize the final response.",
+        "metadata": {
+          "estimated_duration": "medium",
+          "plan_confidence": "medium"
+        },
+        "created_at": "2025-11-12T20:49:47.607868",
+        "planner_version": "2.0.0-llm",
+        "available_tools": 11,
+        "estimated_steps": 1,
+        "llm_generated": true,
+        "revision_number": 0,
+        "notes": []
+      }
+    },
+    {
+      "iteration": 2,
+      "plan": {
+        "error": "Failed to get valid response from LLM",
+        "details": "402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions",
+        "plan_schema_version": "2.0",
+        "query": "summarize recent research on diffusion models",
+        "analysis_summary": "No analysis provided.",
+        "clarifications_needed": [],
+        "tool_selection_rationale": [
+          {
+            "tool": "qa_engine",
+            "justification": "Needed to accomplish S1.",
+            "confidence": "medium"
+          }
+        ],
+        "pipeline": [
+          {
+            "step_id": "S1",
+            "tool": "qa_engine",
+            "purpose": "Respond directly to the user query.",
+            "input": "summarize recent research on diffusion models",
+            "expected_output": "A direct answer to the user's question.",
+            "dependencies": [],
+            "fallback_tools": [],
+            "max_retries": 2
+          }
+        ],
+        "final_output_plan": "qa_engine will synthesize the final response.",
+        "metadata": {
+          "estimated_duration": "medium",
+          "plan_confidence": "medium"
+        },
+        "revision_number": 1,
+        "previous_score": 0,
+        "addressed_issues": 0,
+        "notes": [
+          "Generated via LLM replanning with verifier feedback"
+        ],
+        "created_at": "2025-11-12T20:50:23.967378",
+        "planner_version": "2.0.0-llm",
+        "available_tools": 11,
+        "estimated_steps": 1,
+        "llm_generated": true
+      }
+    }
+  ],
+  "plan_explanation": "\ud83e\udd16 **Planner Analysis & Task Pipeline**\n\n**Query:** summarize recent research on diffusion models\n**Analysis:** No analysis provided.\n\n**\ud83d\udccb Planned Task Pipeline:**\n1. **qa_engine** (`S1`)\n   - Purpose: Respond directly to the user query.\n   - Input: summarize recent research on diffusion models\n   - Expected Output: A direct answer to the user's question.\n\n**\ud83c\udfaf Final Output Plan:** qa_engine will synthesize the final response.\n**\ud83d\udcca Plan Metadata:** 1 steps \u2022 Confidence: medium \u2022 Estimated Duration: medium",
+  "verification": {
+    "error": "Failed to get valid response from LLM",
+    "details": "402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions",
+    "final_verdict": "revise",
+    "confidence": "medium",
+    "risk_level": "medium",
+    "issues": [],
+    "suggested_corrections": [],
+    "quality_summary": "No quality summary provided.",
+    "next_actions": [
+      "Review corrections and proceed to execution once addressed."
+    ],
+    "scoring_breakdown": {},
+    "verified_at": "2025-11-12T20:50:41.754057",
+    "verification_method": "llm"
+  },
+  "verifier_feedback": "\ud83d\udd0d **Verifier Feedback & Plan Validation**\n\n**Verdict:** REVISE (Score: 0/100)\n**Confidence:** medium\n**Risk Level:** medium\n\n**\u27a1\ufe0f Next Actions:**\n- Review corrections and proceed to execution once addressed.\n\n**\ud83d\udcc4 Quality Summary:**\nNo quality summary provided.\n\n",
+  "execution_results": [
+    {
+      "step": "S1",
+      "tool": "qa_engine",
+      "status": "success",
+      "execution_time": 3.4356632232666016,
+      "output": "## \ud83d\udca1 Comprehensive Answer\n\nI\u2019m sorry, but I don\u2019t have any specific context or references provided about recent research on diffusion models. Without that information, I can\u2019t produce the detailed, factual, and fully cited answer you\u2019re requesting. If you can share the relevant papers, datasets, or other sources, I\u2019ll gladly synthesize them into the comprehensive overview you need.",
+      "input": "summarize recent research on diffusion models",
+      "purpose": "Respond directly to the user query.",
+      "expected_output": "A direct answer to the user's question.",
+      "attempts": 1
+    }
+  ],
+  "final_response": "## \ud83d\udca1 Comprehensive Answer\n\nI\u2019m sorry, but I don\u2019t have any specific context or references provided about recent research on diffusion models. Without that information, I can\u2019t produce the detailed, factual, and fully cited answer you\u2019re requesting. If you can share the relevant papers, datasets, or other sources, I\u2019ll gladly synthesize them into the comprehensive overview you need.",
+  "status": "completed",
+  "response_metadata": {
+    "response_origin": "tool_execution",
+    "factual_confidence": "medium",
+    "tools_used": [
+      "qa_engine"
+    ],
+    "disclaimer": "Verifier score: N/A/100"
+  },
+  "execution_time": 100.52417182922363
+}

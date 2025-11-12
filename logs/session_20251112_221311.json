@@ -1,0 +1,24 @@
+{
+  "session_id": "session_20251112_221246",
+  "user_query": "summarize research on climate change",
+  "classification": {
+    "route": "direct_llm",
+    "confidence": 0.93,
+    "rationale": "High-level literature summary on a well-known topic can be handled directly without multi-step tools.",
+    "heuristics_triggered": {},
+    "llm_backstop_used": true
+  },
+  "plan": null,
+  "plan_history": [],
+  "verification": null,
+  "execution_results": [],
+  "final_response": "Got you. Here\u2019s a super short, up\u2011to\u2011date overview of what the research says on climate change:\n\n1. It\u2019s definitely us\n- Warming: Global surface temperature is ~1.1\u20131.3\u00b0C above preindustrial levels.\n- Cause: Multiple lines of evidence (satellites, ocean heat content, models, paleoclimate) show >100% of the observed warming is due to human activities, mainly CO\u2082, methane, nitrous oxide from fossil fuels, deforestation, agriculture, industry.\n\n2. What\u2019s already happening\n- Heat: More frequent and intense heatwaves on every inhabited continent.\n- Extremes: Heavier rainfall and flooding in many regions; more intense drought in others.\n- Wildfires: Longer fire seasons and larger, more severe fires in many areas.\n- Oceans: Warming, acidifying, losing oxygen; marine heatwaves harming coral reefs and fisheries.\n- Ice and seas: Glaciers and ice sheets shrinking; sea level has risen >20 cm since 1900 and is accelerating.\n- Ecosystems: Shifts in species ranges, earlier seasons, mass coral bleaching, growing extinction risk.\n- Health: More heat-related illness, worsened air quality, shifting disease patterns.\n\n3. Where we\u2019re headed (if we don\u2019t change course)\n- Current policies: Roughly 2.4\u20132.8\u00b0C warming by 2100.\n- Pledges (if fully met): About 1.8\u20132.1\u00b0C, but big gap between promises and real action.\n- Risks grow fast with each fraction of a degree: food and water stress, deadly heatwaves, coastal flooding, conflict risks, economic losses.\n- Some tipping points become more likely beyond ~1.5\u20132\u00b0C: major ice sheet loss, Amazon dieback, permafrost thaw releasing more CO\u2082/methane.\n\n4. What needs to happen to limit warming\n- Global emissions must:\n  - Peak essentially now.\n  - Cut roughly 50% by 2030 (vs. 2019) for a good shot at 1.5\u00b0C.\n  - Reach net zero CO\u2082 around 2050; other greenhouse gases shortly after.\n- Key moves research highlights:\n  - Rapid phase-down of coal, then oil and gas; big expansion of renewables, storage, grids.\n  - Efficiency everywhere: buildings, industry, transport.\n  - Electrify transport & heating; decarbonize heavy industry.\n  - Protect and restore forests, wetlands, soils.\n  - Some carbon removal (natural + tech), but it\u2019s a supplement, not an excuse to delay cuts.\n\n5. Can we actually do it?\n- Technically: Yes. Renewables are now often cheaper than fossil fuels; many solutions exist.\n- Economically: Transition costs are real but manageable; damages from inaction are far larger.\n- Politically/social",
+  "status": "completed_direct_llm",
+  "response_metadata": {
+    "response_origin": "llm_fallback",
+    "factual_confidence": "low",
+    "tools_used": [],
+    "disclaimer": "\u26a0\ufe0f This response may include LLM-generated content. Verify for factual accuracy."
+  },
+  "execution_time": 25.620774030685425
+}

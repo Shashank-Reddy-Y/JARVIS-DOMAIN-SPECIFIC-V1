@@ -53,13 +53,13 @@ class LLMClient:
         self.api_key = os.getenv('OPENROUTER_API_KEY')
         self.base_url = "https://openrouter.ai/api/v1"
         
-        # Try multiple models in order of preference
+        preferred_model = os.getenv('OPENROUTER_MODEL', 'openai/gpt-oss-20b:free')
         self.models = [
-            os.getenv('OPENROUTER_MODEL', 'microsoft/wizardlm-2-8x22b'),
-            'microsoft/wizardlm-2-8x22b',
-            'anthropic/claude-3-haiku',
-            'openai/gpt-3.5-turbo',
-            'meta-llama/llama-3-8b-instruct',
+            preferred_model,
+            'openrouter/polaris-alpha',
+            'nvidia/nemotron-nano-12b-v2-vl:free',
+            'qwen/qwen3-coder:free',
+            'cognitivecomputations/dolphin-mistral-24b-venice-edition:free',
         ]
         self.model = self.models[0]  # Start with preferred model
         
@@ -87,46 +87,63 @@ class LLMClient:
         self._last_call = time.time()
 
     def _extract_json_from_response(self, text: str) -> str:
-        """Extract JSON from LLM response, handling various formats."""
+        """Extract JSON from LLM response, handling various escape hatches and partial fragments."""
         if not text:
+            self.logger.error("_extract_json_from_response: empty input!")
             raise ValueError("Empty response from LLM")
 
-        # Try to find JSON object or array
-        json_match = re.search(r'\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\}|\[[^\]]*\]', text, re.DOTALL)
-        if json_match:
+        import re
+        # Remove markdown code block wrappers (more aggressive than old)
+        text = re.sub(r"^```(json)?", '', text.strip(), flags=re.IGNORECASE)
+        text = re.sub(r"```$", '', text.strip())
+
+        # Find all JSON blocks
+        matches = list(re.finditer(r'\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\}', text, re.DOTALL))
+        if matches:
+            # pick the biggest one (most typical case)
+            biggest = max(matches, key=lambda m: len(m.group(0)))
+            js = biggest.group(0)
             try:
-                # Try to parse the matched JSON
-                json.loads(json_match.group(0))
-                return json_match.group(0)
-            except json.JSONDecodeError:
+                json.loads(js)
+                return js
+            except Exception:
                 pass
-
-        # If no valid JSON found, try to clean and parse the whole text
-        try:
-            # Remove markdown code blocks if present
-            cleaned = re.sub(r'```(?:json)?\s*', '', text, flags=re.IGNORECASE)
-            cleaned = re.sub(r'```\s*$', '', cleaned)
-            json.loads(cleaned)
-            return cleaned
-        except json.JSONDecodeError:
-            pass
-
-        # If all else fails, try to extract the first valid JSON object
-        try:
-            # Look for content between curly braces
-            match = re.search(r'\{.*\}', text, re.DOTALL)
-            if match:
-                return match.group(0)
-        except Exception:
-            pass
-
+        # Try to match arrays at the top level as well
+        array_match = re.search(r'\[.*\]', text, re.DOTALL)
+        if array_match:
+            js = array_match.group(0)
+            try:
+                json.loads(js)
+                return js
+            except Exception:
+                pass
+        # Fallback to original (naive) curly-block extraction
+        first_brace = text.find('{')
+        last_brace = text.rfind('}')
+        if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+            raw = text[first_brace:last_brace+1]
+            try:
+                json.loads(raw)
+                return raw
+            except Exception:
+                pass
+        # Final fallback: try to correct typical bad endings
+        text = text.replace("\n", " ")
+        candidates = re.findall(r'\{[\s\S]+\}', text)
+        for c in reversed(candidates):
+            try:
+                json.loads(c)
+                return c
+            except Exception:
+                continue
+        self.logger.error(f"Failed to extract valid JSON from LLM response. TEXT SNIPPET: {text[:350]}")
         raise ValueError("Could not extract valid JSON from response")
 
     def call_llm(
         self, 
         prompt: str, 
         system_prompt: str = None, 
-        max_tokens: int = 1000,
+        max_tokens: int = 4000,
         max_retries: int = 3,
         retry_delay: float = 2.0,
         require_json: bool = False

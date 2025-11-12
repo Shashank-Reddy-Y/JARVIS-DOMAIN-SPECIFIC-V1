@@ -91,12 +91,15 @@ async def chat_endpoint(payload: ChatRequest) -> ChatResponse:
         raise HTTPException(status_code=500, detail="Failed to process message.") from exc
 
     execution_results = results.get("execution_results", [])
-    response_text = "I wasn't able to generate a response. Please try again."
+    response_text = results.get("final_response")
 
-    for step in reversed(execution_results):
-        if step.get("status") == "success":
-            response_text = step.get("output") or response_text
-            break
+    if not response_text:
+        response_text = "I wasn't able to generate a response. Please try again."
+
+        for step in reversed(execution_results):
+            if step.get("status") == "success":
+                response_text = step.get("output") or response_text
+                break
 
     return ChatResponse(
         response=response_text,
