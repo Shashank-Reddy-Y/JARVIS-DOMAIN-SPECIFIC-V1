@@ -4,20 +4,125 @@ A **GAN-Inspired Multi-Agent Task Planning & Execution System** that demonstrate
 
 ## 🌟 Overview
 
-DualMind Orchestrator implements a novel approach to AI task execution using a **Generator-Discriminator architecture** inspired by Generative Adversarial Networks (GANs):
-
-- **Planner LLM (Generator)**: Creates structured task pipelines by analyzing user queries and available tools
-- **Verifier LLM (Discriminator)**: Reviews and critiques the Planner's output, detecting errors and suggesting improvements
-- **Orchestrator**: Coordinates the entire process, executing tools and managing the feedback loop
+DualMind Orchestrator implements a novel approach to AI task execution using a **Generator-Discriminator architecture** inspired by Generative Adversarial Networks (GANs).
 
 ## ✨ Key Features
 
 - 🤖 **Multi-Agent Architecture**: Planner and Verifier LLMs work together in an adversarial setup
 - 🔧 **Extensible Tool System**: Modular tools for various tasks (research, summarization, analysis, visualization)
 - ✅ **Self-Verification**: Automatic plan validation and improvement suggestions
-- 📊 **Visual Interface**: Beautiful Gradio UI showing the complete reasoning process
+- 📊 **Visual Interface**: Beautiful UI showing the complete reasoning process
 - 📄 **PDF Report Generation**: Automatic creation of structured reports
 - 🛠️ **Fallback Mechanisms**: Works even when APIs are unavailable (demo mode)
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.8+
+- Node.js 16+ (for frontend)
+- npm or yarn (for frontend dependencies)
+- Conda (recommended) or virtualenv
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd DualMind
+   ```
+
+2. **Set up Python environment**
+   ```bash
+   # Create and activate conda environment
+   conda create -n dualmind python=3.9
+   conda activate dualmind
+   
+   # Install Python dependencies
+   pip install -r requirements.txt
+   ```
+
+3. **Set up frontend**
+   ```bash
+   cd frontend
+   npm install
+   cd ..
+   ```
+
+4. **Environment Variables**
+   Create a `.env` file in the project root with your API keys (if needed):
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   ```
+
+### Running the Application
+
+1. **Start the backend server** (Terminal 1)
+   ```bash
+   python api_server.py
+   ```
+   The API will be available at `http://localhost:8000`
+
+2. **Start the frontend** (Terminal 2)
+   ```bash
+   # Navigate to frontend directory
+   cd frontend
+   
+   # Install dependencies (first time only)
+   npm install
+   
+   # Start development server
+   npm run dev
+   ```
+   The frontend will be available at `http://localhost:5173`
+
+## 🖥️ Frontend Development
+
+### Available Scripts
+
+In the `frontend` directory, you can run:
+
+- `npm run dev` - Starts the development server with hot-reload
+- `npm run build` - Builds the app for production to the `dist` folder
+- `npm run preview` - Serves the production build locally for testing
+- `npm run lint` - Runs ESLint to check code quality
+
+### Project Structure
+
+```
+frontend/
+├── src/               # Source files
+│   ├── components/    # React components
+│   ├── pages/         # Page components
+│   ├── styles/        # Global styles
+│   ├── utils/         # Utility functions
+│   └── App.tsx        # Main App component
+├── public/            # Static files
+├── index.html         # Main HTML template
+└── package.json       # Dependencies and scripts
+```
+
+### Building for Production
+
+To create a production build:
+
+```bash
+cd frontend
+npm run build
+```
+
+This will create an optimized build in the `dist` directory that you can deploy to any static hosting service.
+
+### Testing the Production Build Locally
+
+After building, you can test the production build locally with:
+
+```bash
+cd frontend
+npm run preview
+```
+
+This will serve the production build at `http://localhost:4173`
 
 ## 🏗️ Architecture
 
