@@ -50,7 +50,7 @@ DualMind draws inspiration from HuggingGPT's approach to task decomposition and 
 
 ### Prerequisites
 
-- Python 3.10
+- Python 3.8+
 - Node.js 16+ (for frontend)
 - npm or yarn (for frontend dependencies)
 - Conda (recommended) or virtualenv
@@ -59,17 +59,14 @@ DualMind draws inspiration from HuggingGPT's approach to task decomposition and 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Shashank-Reddy-Y/JARVIS-DOMAIN-SPECIFIC-V1.git (for gradio)
-   cd DualMind
-
-   git clone -b final_demo --single-branch https://github.com/Shashank-Reddy-Y/JARVIS-DOMAIN-SPECIFIC-V1.git ( for React frontend and fully updated backend)
+   git clone <repository-url>
    cd DualMind
    ```
 
 2. **Set up Python environment**
    ```bash
    # Create and activate conda environment
-   conda create -n dualmind python=3.10
+   conda create -n dualmind python=3.9
    conda activate dualmind
    
    # Install Python dependencies
@@ -160,10 +157,29 @@ This will serve the production build at `http://localhost:4173`
 
 ## 🏗️ Architecture
 
-```
-![WhatsApp Image 2025-11-13 at 07 58 42_85da1cad](https://github.com/user-attachments/assets/044bb696-adde-41e6-807c-2ad62af1b8e0)
+![DualMind Architecture Diagram](image/architecture.jpg)
 
-```
+### System Components
+
+1. **Planner LLM (Generator)**
+   - Creates initial task pipelines based on user queries
+   - Breaks down complex tasks into executable steps
+   - Selects appropriate tools for each subtask
+
+2. **Verifier LLM (Discriminator)**
+   - Critically evaluates plans for quality and feasibility
+   - Provides feedback for iterative improvement
+   - Scores plans across multiple dimensions
+
+3. **Orchestrator**
+   - Coordinates the entire execution flow
+   - Manages communication between components
+   - Handles error recovery and fallbacks
+
+4. **Tool Chain**
+   - Collection of specialized tools for different tasks
+   - Tools are selected dynamically based on requirements
+   - Supports fallback mechanisms for robustness
 
 ## 🧰 Available Tools
 
@@ -361,6 +377,5 @@ This project is for educational and demonstration purposes. Please respect API t
 - Thanks to the AI research community for advancing these concepts
 
 ---
-
 
 
