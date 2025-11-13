@@ -127,7 +127,9 @@ class Orchestrator:
         plan_history: List[Dict[str, Any]] = []
         plan = None
         verifier_report: Optional[Dict[str, Any]] = None
-        iteration = 0
+        best_plan = None
+        best_score = -1
+        best_verifier_report = None
 
         for iteration in range(1, max_iterations + 1):
             self.logger.info("Planning iteration %d/%d", iteration, max_iterations)
@@ -160,16 +162,31 @@ class Orchestrator:
             })
 
             verifier_report = self.verifier.verify_plan(plan)
+            current_score = verifier_report.get("overall_score", 0)
+            
+            # Track the best plan we've seen so far
+            if current_score > best_score:
+                best_score = current_score
+                best_plan = plan
+                best_verifier_report = verifier_report
+            
             if verifier_report.get("final_verdict", "revise") == "approve":
-                self.logger.info("Plan approved by verifier with score %s", verifier_report.get("overall_score"))
+                self.logger.info("Plan approved by verifier with score %s", current_score)
                 break
+                
             self.logger.info(
                 "Plan revision required (score: %s). Issues: %s",
-                verifier_report.get("overall_score"),
+                current_score,
                 len(verifier_report.get("issues", [])),
             )
         else:
-            self.logger.warning("Max planning iterations reached without approval.")
+            # If we get here, we've used all iterations without approval
+            self.logger.warning(
+                "Max planning iterations reached without approval. "
+                f"Using best plan with score {best_score}/100"
+            )
+            plan = best_plan
+            verifier_report = best_verifier_report
 
         execution_results, tools_used, execution_status = self._execute_plan(plan, user_query)
 

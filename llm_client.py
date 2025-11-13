@@ -77,13 +77,45 @@ class LLMClient:
         self.model = self.models[next_index]
         self.logger.warning(f"Switching to model: {self.model}")
 
-    def _rate_limit(self):
-        """Simple rate limiting to prevent hitting API limits."""
+    def _rate_limit(self, retry_after: int = None):
+        """
+        Handle rate limiting with exponential backoff.
+        
+        Args:
+            retry_after: Number of seconds to wait before retrying (if provided by API)
+        """
+        if not hasattr(self, '_last_call'):
+            self._last_call = 0
+            self._consecutive_errors = 0
+            self._last_error_time = 0
+        
         current_time = time.time()
-        if hasattr(self, '_last_call'):
-            elapsed = current_time - self._last_call
-            if elapsed < 1.0:  # 1 second between calls
-                time.sleep(1.0 - elapsed)
+        min_interval = 1.0  # Minimum 1 second between calls
+        
+        # If we have a retry_after from the API, use that
+        if retry_after is not None:
+            wait_time = max(retry_after, min_interval)
+            self.logger.warning(f"Rate limited. Waiting {wait_time:.1f} seconds...")
+            time.sleep(wait_time)
+            self._last_call = time.time()
+            return
+            
+        # Otherwise use exponential backoff based on consecutive errors
+        elapsed_since_last_call = current_time - self._last_call
+        elapsed_since_last_error = current_time - self._last_error_time
+        
+        # Reset error count if it's been a while since the last error
+        if elapsed_since_last_error > 60:  # 1 minute cooldown
+            self._consecutive_errors = 0
+            
+        # Calculate wait time with exponential backoff
+        if self._consecutive_errors > 0:
+            backoff = min(2 ** self._consecutive_errors, 60)  # Cap at 60 seconds
+            wait_time = max(backoff, min_interval - elapsed_since_last_call)
+            if wait_time > 0:
+                self.logger.warning(f"Rate limiting: Waiting {wait_time:.1f}s (attempt {self._consecutive_errors})")
+                time.sleep(wait_time)
+                
         self._last_call = time.time()
 
     def _extract_json_from_response(self, text: str) -> str:
@@ -169,6 +201,7 @@ class LLMClient:
         retry_count = 0
         last_error = None
         delay = retry_delay
+        self._consecutive_errors = 0  # Reset error counter for new request
 
         while retry_count <= max_retries:
             try:

@@ -611,10 +611,68 @@ class Planner:
 
     def _create_fallback_plan(self, user_query: str) -> Dict[str, Any]:
         query_lower = user_query.lower()
+        
+        # Check if we have any tools loaded
+        if not self.tools:
+            self.logger.warning("No tools available for fallback plan - loading tools")
+            self.tools = self._load_tools()
+            if not self.tools:
+                self.logger.error("No tools available even after reloading")
+                return self._create_basic_llm_plan(user_query)
+        
+        # Get available tool names for validation
+        available_tools = {tool['name'] for tool in self.tools}
+        
+        # Try to use an appropriate fallback generator based on query
         for keyword, builder in self.fallback_generators.items():
             if keyword in query_lower:
-                return builder(user_query)
-        return self._create_research_plan(user_query)
+                plan = builder(user_query)
+                # Ensure all tools in the plan are available
+                if self._validate_plan_tools(plan, available_tools):
+                    return plan
+        
+        # Default to research plan if no better match found
+        plan = self._create_research_plan(user_query)
+        if not self._validate_plan_tools(plan, available_tools):
+            return self._create_basic_llm_plan(user_query)
+        return plan
+        
+    def _validate_plan_tools(self, plan: Dict[str, Any], available_tools: set) -> bool:
+        """Validate that all tools in the plan exist in available_tools."""
+        if not plan or 'pipeline' not in plan:
+            return False
+            
+        for step in plan['pipeline']:
+            tool = step.get('tool')
+            if tool and tool not in available_tools:
+                self.logger.warning(f"Tool '{tool}' not found in available tools")
+                return False
+                
+            # Check fallback tools if they exist
+            fallback_tools = step.get('fallback_tools', [])
+            for ftool in fallback_tools:
+                if ftool not in available_tools:
+                    self.logger.warning(f"Fallback tool '{ftool}' not found in available tools")
+                    return False
+        return True
+        
+    def _create_basic_llm_plan(self, query: str) -> Dict[str, Any]:
+        """Create a minimal plan using only the qa_engine as a last resort."""
+        steps = [
+            self._build_step(
+                index=1,
+                tool="qa_engine",
+                purpose="Directly answer the user's question.",
+                input_value=query,
+                expected_output="Helpful response to the user's query.",
+            )
+        ]
+        return self._build_plan(
+            query=query,
+            analysis_summary="Minimal fallback plan using only the QA engine.",
+            steps=steps,
+            plan_confidence="low",
+        )
 
     def _improve_plan_rule_based(
         self,

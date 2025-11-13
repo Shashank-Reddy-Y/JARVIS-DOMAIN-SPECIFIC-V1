@@ -1,0 +1,31 @@
+{
+  "session_id": "session_20251113_003435",
+  "user_query": "tell me everything about blockchain technology",
+  "classification": {
+    "route": "direct_llm",
+    "confidence": 0.7,
+    "rationale": "Simple heuristic routing.",
+    "heuristics_triggered": {
+      "length": 6,
+      "contains_tool_hints": false,
+      "has_multiple_sentences": false,
+      "mentions_files": false,
+      "requires_verification": false,
+      "question_word_start": false
+    },
+    "llm_backstop_used": false
+  },
+  "plan": null,
+  "plan_history": [],
+  "verification": null,
+  "execution_results": [],
+  "final_response": "Love the ambition. \u201cEverything\u201d is huge, but I\u2019ll give you a clear, practical overview so you actually get it, not just buzzwords. If you want to zoom deeper on any part, ask and we\u2019ll drill in.\n\n1. Core idea (what a blockchain actually is)\n- At its simplest:\n  - A shared database (ledger)\n  - Maintained by many computers (nodes) instead of one central party\n  - Data grouped into \u201cblocks\u201d that are linked (chained) using cryptography\n- Key properties:\n  - Append-only: you add new records; you don\u2019t edit old ones.\n  - Tamper-evident: changing past data is extremely hard/obvious.\n  - Distributed: many nodes hold copies; no single point of failure.\n\n2. How the \u201cblock\u201d and the \u201cchain\u201d work\n- Each block contains:\n  - A list of transactions/data\n  - A timestamp\n  - A hash (fingerprint) of its contents\n  - The hash of the previous block\n- That previous-hash link = if you edit an old block, all later hashes break.\n- Because many nodes store this chain, they can all check consistency.\n\n3. Cryptography (not scary, just two main ideas)\n- Hashing:\n  - Turns any input into a fixed-length output.\n  - Tiny change in input \u2192 totally different hash.\n  - Used for integrity: \u201cIs this still exactly what it was?\u201d\n- Public-key cryptography:\n  - You have a public key (share it) and private key (secret).\n  - You sign transactions with your private key to prove \u201cthis is me\u201d without revealing the key.\n\n4. Consensus: how everyone agrees on the truth\nBlockchains don\u2019t have a boss, so they need rules to agree which transactions are valid.\n\nCommon mechanisms:\n- Proof of Work (PoW):\n  - Miners do heavy computation to propose blocks.\n  - Makes attacking extremely expensive.\n  - Used by: Bitcoin. Downsides: energy-hungry, slower.\n- Proof of Stake (PoS):\n  - Validators lock up tokens as \u201cstake.\u201d\n  - If they cheat, they lose money.\n  - Used by: Ethereum now, many others. More efficient, but different trust trade-offs.\n- Others (just know they exist):\n  - Delegated PoS, Proof of Authority, BFT variants, etc.\n  - Often used in private/enterprise chains for speed and control.\n\n5. Public vs private vs consortium chains\n- Public (permissionless):\n  - Anyone can join, read, write (with rules).\n  - Examples: Bitcoin, Ethereum.\n  - Pros: open, censorship-resistant. Cons: slower, more expensive.\n- Private (permissioned):\n  - Controlled by one org. Nodes need permission.\n  - Pros: fast, cheap, private. Cons: trust is",
+  "status": "completed_direct_llm",
+  "response_metadata": {
+    "response_origin": "llm_fallback",
+    "factual_confidence": "low",
+    "tools_used": [],
+    "disclaimer": "\u26a0\ufe0f This response may include LLM-generated content. Verify for factual accuracy."
+  },
+  "execution_time": 14.333775520324707
+}
