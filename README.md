@@ -1,6 +1,8 @@
 # 🧠 DualMind Orchestrator
 
 A **GAN-Inspired Multi-Agent Task Planning & Execution System** that demonstrates intelligent task planning, tool usage, adversarial self-verification, and report generation.
+*This project is developed as a domain specific application of the improvised architecture inspired from HuggingGPT*
+*Currently functions like a research assistant*
 
 ## 🌟 Overview
 
@@ -384,6 +386,7 @@ This project is for educational and demonstration purposes. Please respect API t
 - Thanks to the AI research community for advancing these concepts
 
 ---
+
 
 
 
