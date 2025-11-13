@@ -348,6 +348,13 @@ dualmind_orchestrator/
    ```
 
 4. **Memory Issues**: For large reports, ensure sufficient RAM (4GB+ recommended)
+## 🎥 Project Demo
+
+Check out our video demonstration to see DualMind in action:
+
+[![DualMind Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/VbCKU45HYY0))
+
+
 
 ## 📈 Performance Tips
 
@@ -377,5 +384,6 @@ This project is for educational and demonstration purposes. Please respect API t
 - Thanks to the AI research community for advancing these concepts
 
 ---
+
 
 
