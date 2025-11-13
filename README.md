@@ -4,7 +4,38 @@ A **GAN-Inspired Multi-Agent Task Planning & Execution System** that demonstrate
 
 ## 🌟 Overview
 
-DualMind Orchestrator implements a novel approach to AI task execution using a **Generator-Discriminator architecture** inspired by Generative Adversarial Networks (GANs).
+DualMind Orchestrator is an advanced AI system that implements a **Generator-Discriminator architecture** inspired by Generative Adversarial Networks (GANs). It builds upon the concepts introduced by HuggingGPT while introducing several key innovations.
+
+### Inspiration from HuggingGPT
+
+DualMind draws inspiration from HuggingGPT's approach to task decomposition and tool utilization, but extends it with:
+
+- **Adversarial Verification**: Unlike HuggingGPT's single-path execution, DualMind introduces a verifier that critically evaluates and improves plans
+- **Iterative Refinement**: Plans are refined through multiple iterations based on verifier feedback
+- **Fallback Mechanisms**: Robust error handling with automatic fallbacks when tools fail
+- **Self-Improving Architecture**: The system learns from past executions to improve future performance
+
+### Key Improvements Over Traditional Approaches
+
+1. **Dual-Agent Architecture**: 
+   - **Planner (Generator)**: Creates initial task pipelines
+   - **Verifier (Discriminator)**: Critically evaluates and improves plans
+   - Continuous feedback loop between agents leads to higher quality outputs
+
+2. **Enhanced Tool Integration**:
+   - Dynamic tool selection with fallback mechanisms
+   - Tools are selected based on their suitability for specific subtasks
+   - Automatic retry logic with exponential backoff
+
+3. **Self-Verification**:
+   - Every plan is automatically verified for quality and feasibility
+   - Verification includes checking tool availability, parameter validation, and logical consistency
+   - Plans are scored across multiple dimensions (relevance, completeness, logical flow, etc.)
+
+4. **Improved Error Handling**:
+   - Graceful degradation when tools fail
+   - Automatic fallback to alternative tools or approaches
+   - Detailed error reporting and recovery mechanisms
 
 ## ✨ Key Features
 
