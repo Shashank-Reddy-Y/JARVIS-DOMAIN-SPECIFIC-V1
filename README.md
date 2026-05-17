@@ -1,4 +1,4 @@
-# 🧠 [DualMind Orchestrator](dualmind-frontend-app-ai.vercel.app)
+# 🧠 [DualMind Orchestrator](https://dualmind-frontend-app-ai.vercel.app)
 
 A **GAN-Inspired Multi-Agent Task Planning & Execution System** that demonstrates intelligent task planning, tool usage, adversarial self-verification, and report generation.
 *This project is developed as a domain specific application of the improvised architecture inspired from HuggingGPT*
